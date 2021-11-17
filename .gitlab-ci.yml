@@ -14,3 +14,5 @@ heroku:
   image: ruby:latest
   script:
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+  only:
+    - master
