@@ -1,3 +1,5 @@
+:bulb: This application is now automatically deployed to [Heroku](https://move-your-table-main.herokuapp.com/).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
