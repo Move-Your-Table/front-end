@@ -1,6 +1,7 @@
 import React from "react";
 import Navigation from "../components/Navigation";
 import userImage from "../assets/user.png";
+import { Link } from "react-router-dom";
 
 export default function Homepage() {
   return (
@@ -21,9 +22,12 @@ export default function Homepage() {
             <button class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-4 sm:px-10 py-2 sm:py-4 text-sm">
               Admin
             </button>
-            <button class="ml-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-white transition duration-150 ease-in-out hover:border-indigo-600 hover:text-indigo-600 rounded border border-indigo-700 text-indigo-700 px-4 sm:px-10 py-2 sm:py-4 text-sm">
+            <Link
+              to="/employee"
+              className="ml-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-white transition duration-150 ease-in-out hover:border-indigo-600 hover:text-indigo-600 rounded border border-indigo-700 text-indigo-700 px-4 sm:px-10 py-2 sm:py-4 text-sm"
+            >
               Employee
-            </button>
+            </Link>
           </div>
         </div>
       </div>
