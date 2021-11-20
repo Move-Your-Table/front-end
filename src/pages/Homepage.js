@@ -1,5 +1,6 @@
 import React from "react";
 import Navigation from "../components/Navigation";
+import userImage from "../assets/user.png";
 
 export default function Homepage() {
   return (
@@ -51,76 +52,89 @@ export default function Homepage() {
             <div class="p-4 pb-6 flex justify-center flex-col items-center">
               <img
                 class="md:block hidden"
-                src="https://i.ibb.co/FYTKDG6/Rectangle-118-2.png"
+                src={userImage}
                 alt="Alexa featured Image"
               />
               <img
                 class="md:hidden block"
-                src="https://i.ibb.co/zHjXqg4/Rectangle-118.png"
+                src={userImage}
                 alt="Alexa featured Image"
               />
               <p class="font-medium text-xl leading-5 text-gray-800 mt-4">
-                Alexa
+                Lennert
               </p>
             </div>
             <div class="p-4 pb-6 flex justify-center flex-col items-center">
               <img
                 class="md:block hidden"
-                src="https://i.ibb.co/fGmxhVy/Rectangle-119.png"
+                src={userImage}
                 alt="Olivia featured Image"
               />
               <img
                 class="md:hidden block"
-                src="https://i.ibb.co/NrWKJ1M/Rectangle-119.png"
+                src={userImage}
                 alt="Olivia featured Image"
               />
               <p class="font-medium text-xl leading-5 text-gray-800 mt-4">
-                Olivia
+                Adriaan
               </p>
             </div>
             <div class="p-4 pb-6 flex justify-center flex-col items-center">
               <img
                 class="md:block hidden"
-                src="https://i.ibb.co/Pc6XVVC/Rectangle-120.png"
+                src={userImage}
                 alt="Liam featued Image"
               />
               <img
                 class="md:hidden block"
-                src="https://i.ibb.co/C5MMBcs/Rectangle-120.png"
+                src={userImage}
                 alt="Liam featued Image"
               />
               <p class="font-medium text-xl leading-5 text-gray-800 mt-4">
-                Liam
+                Steffen
               </p>
             </div>
             <div class="p-4 pb-6 flex justify-center flex-col items-center">
               <img
                 class="md:block hidden"
-                src="https://i.ibb.co/7nSJPXQ/Rectangle-121.png"
+                src={userImage}
                 alt="Elijah featured image"
               />
               <img
                 class="md:hidden block"
-                src="https://i.ibb.co/ThZBWxH/Rectangle-121.png"
+                src={userImage}
                 alt="Elijah featured image"
               />
               <p class="font-medium text-xl leading-5 text-gray-800 mt-4">
-                Elijah
+                Kjell
               </p>
             </div>
             <div class="p-4 pb-6 flex justify-center flex-col items-center">
               <img
                 class="md:block hidden"
-                src="https://i.ibb.co/7nSJPXQ/Rectangle-121.png"
+                src={userImage}
                 alt="Elijah featured image"
               />
               <img
                 class="md:hidden block"
-                src="https://i.ibb.co/ThZBWxH/Rectangle-121.png"
+                src={userImage}
+                alt="Elijah featured image"
+              />
+              <p class="font-medium text-xl leading-5 text-gray-800 mt-4">Bo</p>
+            </div>
+            <div class="p-4 pb-6 flex justify-center flex-col items-center">
+              <img
+                class="md:block hidden"
+                src={userImage}
+                alt="Elijah featured image"
+              />
+              <img
+                class="md:hidden block"
+                src={userImage}
                 alt="Elijah featured image"
               />
               <p class="font-medium text-xl leading-5 text-gray-800 mt-4">
-                Elijah
+                Tijl
               </p>
             </div>
           </div>
