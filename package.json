@@ -3,21 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.4.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
-    "tailwindcss": "^2.2.19",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "npm run watch:css && react-scripts start",
-    "build": "npm run watch:css && react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "watch:css": "postcss src/assets/tailwind.css -o src/assets/index.css"
+    "start": "craco start",
+     "build": "craco build",
+     "test": "craco test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -38,8 +38,8 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.3.11",
+    "autoprefixer": "^9",
+    "postcss": "^7",
     "postcss-cli": "^9.0.2"
   }
 }
