@@ -26,8 +26,19 @@ module.exports = {
       minWidth: {
         fit: "fit-content",
       },
+      colors: {
+        transparent: "transparent",
+        current: "currentColor",
+
+        myt_bg: "#2B2B2B",
+        myt_blue: "#14213D",
+        myt_yellow: "#FCA311",
+        myt_platinum: "#E5E5E5",
+        myt_ghostwhite: "#F8F8FF",
+      },
     },
   },
+
   variants: {
     extend: {
       borderColor: ["focus-visible"],
