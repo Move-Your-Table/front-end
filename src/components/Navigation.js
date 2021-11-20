@@ -1,12 +1,12 @@
 import React from "react";
-import logo from "../assets/logo_fixed.png";
+import logo from "../assets/myt-transp.png";
 
 export default function Navigation() {
   return (
     <div>
       <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6">
         <div className="flex items-center flex-shrink-0 text-white mr-6">
-          <img className="w-20 filter invert" src={logo} />
+          <img className="w-20" src={logo} />
 
           <span className="font-semibold text-xl tracking-tight">
             Move Your table
