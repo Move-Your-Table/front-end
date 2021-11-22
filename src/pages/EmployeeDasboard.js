@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import UpcommingReservationsList from "../components/Employee/UpcommingReservationsList";
+import SlideInModal from "../components/modals/SlideInModal";
 import EmployeeNavigation from "../components/Navigation/EmployeeNavigation";
 
 const EmployeeDasboard = () => {
@@ -28,8 +29,12 @@ const EmployeeDasboard = () => {
         </div>
         <div className="flex flex-1 flex-col">
           <h2 className="mb-8 text-xl">Past reservations</h2>
+          <UpcommingReservationsList reservations={reservationsJson} />
         </div>
       </div>
+      <SlideInModal isOpen={true}>
+        <h1>sefse</h1>
+      </SlideInModal>
     </div>
   );
 };
