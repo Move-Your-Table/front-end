@@ -4,6 +4,12 @@ import SlideInModal from "../components/modals/SlideInModal";
 import EmployeeNavigation from "../components/Navigation/EmployeeNavigation";
 
 const EmployeeDasboard = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const toggleModalOpen = () => {
+    setModalOpen((value) => !value);
+  };
+
   const [reservationsJson, setReservationsJson] = useState([
     {
       id: 1,
@@ -26,13 +32,15 @@ const EmployeeDasboard = () => {
         <div className="flex flex-1 flex-col">
           <h2 className="mb-8 text-xl">Upcomming reservations</h2>
           <UpcommingReservationsList reservations={reservationsJson} />
+          <button onClick={toggleModalOpen}>Activate Lasers</button>
         </div>
         <div className="flex flex-1 flex-col">
-          <h2 className="mb-8 text-xl">Past reservations</h2>
-          <UpcommingReservationsList reservations={reservationsJson} />
+          {/* <h2 className="mb-8 text-xl">Past reservations</h2>
+          <UpcommingReservationsList reservations={reservationsJson} /> */}
         </div>
       </div>
-      <SlideInModal isOpen={true}>
+
+      <SlideInModal isOpen={isModalOpen} handleClose={toggleModalOpen}>
         <h1>sefse</h1>
       </SlideInModal>
     </div>
