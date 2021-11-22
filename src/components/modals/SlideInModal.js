@@ -11,6 +11,7 @@ const SlideInModal = ({ handleClose, children, isOpen }) => {
       >
         <div className="absolute inset-0 overflow-hidden">
           <div
+            onClick={handleClose}
             className="absolute inset-0 bg-opacity-75 transition-opacity bg-gray-800 "
             aria-hidden="true"
           ></div>
