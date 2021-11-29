@@ -82,8 +82,8 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
       <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-6">
         <h4>Features</h4>
         <ul className="list-disc px-6">
-          {features.map((feature) => {
-            return <li>{feature}</li>;
+          {features.map((feature, i) => {
+            return <li key={i}>{feature}</li>;
           })}
         </ul>
       </div>

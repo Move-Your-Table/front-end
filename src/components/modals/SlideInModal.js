@@ -36,7 +36,7 @@ const SlideInModal = ({ handleClose, children, isOpen, title }) => {
                 transition={{ easeInOut: [0.17, 0.67, 0.83, 0.67] }}
                 className="fixed inset-y-0 right-0 pl-10 max-w-full flex"
               >
-                <div className="relative w-screen max-w-4xl bg-myt_ghostwhite">
+                <div className="relative w-screen max-w-3xl bg-myt_ghostwhite">
                   <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">
                     <button
                       onClick={handleClose}
@@ -75,7 +75,7 @@ const SlideInModal = ({ handleClose, children, isOpen, title }) => {
                     <div className="mt-6 relative flex-1 px-4 sm:px-6">
                       <div className="absolute inset-0 px-4 sm:px-6">
                         <div
-                          className="h-full border-2 border-dashed border-gray-200"
+                          className="h-full  border-gray-200"
                           aria-hidden="true"
                         >
                           {children}

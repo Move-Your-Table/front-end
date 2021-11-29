@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import UpcommingReservationsList from "../components/Employee/UpcommingReservationsList";
 import NewReservationModal from "../components/modals/NewReservationModal";
+import ReservationModal from "../components/modals/ReservationModal";
 import SlideInModal from "../components/modals/SlideInModal";
 import EmployeeNavigation from "../components/Navigation/EmployeeNavigation";
 
 const EmployeeDasboard = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  const toggleModalOpen = () => {
-    setModalOpen((value) => !value);
-  };
+  const [isCreateModalOpen, setCreateModalOpen] = useState(false);
 
   const [reservationsJson, setReservationsJson] = useState([
     {
@@ -35,7 +32,7 @@ const EmployeeDasboard = () => {
             <h2 className=" text-xl">Upcomming reservations</h2>
             <button
               className="bg-indigo-900 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
-              onClick={toggleModalOpen}
+              onClick={() => setCreateModalOpen((value) => !value)}
             >
               Create +
             </button>
@@ -53,7 +50,10 @@ const EmployeeDasboard = () => {
         <h1>sefse</h1>
       </SlideInModal>
 
-      <NewReservationModal isOpen={isModalOpen} handleClose={toggleModalOpen} />
+      <NewReservationModal
+        isOpen={isCreateModalOpen}
+        handleClose={() => setCreateModalOpen((value) => !value)}
+      />
     </div>
   );
 };
