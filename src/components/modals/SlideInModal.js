@@ -7,7 +7,7 @@ const modalVariant = {
   exit: { opacity: 0 },
 };
 
-const SlideInModal = ({ handleClose, children, isOpen }) => {
+const SlideInModal = ({ handleClose, children, isOpen, title }) => {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -18,7 +18,7 @@ const SlideInModal = ({ handleClose, children, isOpen }) => {
           variants={modalVariant}
         >
           <div
-            className="fixed inset-0 overflow-hidden "
+            className="fixed inset-0 overflow-hidden"
             aria-labelledby="slide-over-title"
             role="dialog"
             aria-modal="true"
@@ -63,13 +63,13 @@ const SlideInModal = ({ handleClose, children, isOpen }) => {
                     </button>
                   </div>
 
-                  <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-auto">
+                  <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-auto text-black">
                     <div className="px-4 sm:px-6">
                       <h2
                         className="text-lg font-medium text-gray-900"
                         id="slide-over-title"
                       >
-                        Panel title
+                        {title ? title : "Default title"}
                       </h2>
                     </div>
                     <div className="mt-6 relative flex-1 px-4 sm:px-6">

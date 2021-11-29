@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import UpcommingReservationsList from "../components/Employee/UpcommingReservationsList";
+import NewReservationModal from "../components/modals/NewReservationModal";
 import SlideInModal from "../components/modals/SlideInModal";
 import EmployeeNavigation from "../components/Navigation/EmployeeNavigation";
 
@@ -30,9 +31,17 @@ const EmployeeDasboard = () => {
       <EmployeeNavigation />
       <div className="container flex flex-col lg:flex-row gap-10">
         <div className="flex flex-1 flex-col">
-          <h2 className="mb-8 text-xl">Upcomming reservations</h2>
+          <div className="flex justify-between items-center mb-8">
+            <h2 className=" text-xl">Upcomming reservations</h2>
+            <button
+              className="bg-indigo-900 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
+              onClick={toggleModalOpen}
+            >
+              Create +
+            </button>
+          </div>
+
           <UpcommingReservationsList reservations={reservationsJson} />
-          <button onClick={toggleModalOpen}>Activate Lasers</button>
         </div>
         <div className="flex flex-1 flex-col">
           {/* <h2 className="mb-8 text-xl">Past reservations</h2>
@@ -40,9 +49,11 @@ const EmployeeDasboard = () => {
         </div>
       </div>
 
-      <SlideInModal isOpen={isModalOpen} handleClose={toggleModalOpen}>
+      <SlideInModal>
         <h1>sefse</h1>
       </SlideInModal>
+
+      <NewReservationModal isOpen={isModalOpen} handleClose={toggleModalOpen} />
     </div>
   );
 };
