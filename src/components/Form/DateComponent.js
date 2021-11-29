@@ -1,25 +1,20 @@
 import React from "react";
 
-const SelectComponent = ({ title, options, selected, setSelected }) => {
-  const handleChange = (event) => {
-    setSelected(event.target.value);
-  };
+import DatePicker from "react-datepicker";
 
+import "react-datepicker/dist/react-datepicker.css";
+
+function DateComponent({ title, date, setDate }) {
   return (
     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-6">
       <label
-        className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
+        className="block uppercase tracking-wide text-gray-700 font-bold mb-2 text-sm"
         for="building"
       >
         {title}
       </label>
       <div className="relative">
-        <select
-          value={selected}
-          onChange={handleChange}
-          className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          id="building"
-        >
+        {/* <select value={selected} onChange={handleChange} id="building">
           {options.map((item) => {
             return (
               <option key={item.id} value={item.id}>
@@ -28,6 +23,14 @@ const SelectComponent = ({ title, options, selected, setSelected }) => {
             );
           })}
         </select>
+        <div> */}
+
+        <DatePicker
+          className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          selected={date}
+          onChange={(date) => setDate(date)}
+        />
+
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
           <svg
             className="fill-current h-4 w-4"
@@ -40,6 +43,6 @@ const SelectComponent = ({ title, options, selected, setSelected }) => {
       </div>
     </div>
   );
-};
+}
 
-export default SelectComponent;
+export default DateComponent;
