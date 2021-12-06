@@ -8,8 +8,12 @@ const ReservationModal = ({ handleClose, isOpen, reservation }) => {
       isOpen={isOpen}
       title="Reservation info"
     >
-      <h1>{reservation.id}</h1>
-      <h1>{reservation.name}</h1>
+      {reservation && (
+        <>
+          <h1>{reservation.id}</h1>
+          <h1>{reservation.name}</h1>
+        </>
+      )}
     </SlideInModal>
   );
 };
