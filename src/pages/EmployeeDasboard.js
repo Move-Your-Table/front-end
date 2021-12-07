@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UpcommingReservationsList from "../components/Employee/UpcommingReservationsList";
 import NewReservationModal from "../components/modals/NewReservationModal";
 import ReservationModal from "../components/modals/ReservationModal";
@@ -13,15 +13,17 @@ const EmployeeDasboard = () => {
       id: 1,
       name: "test",
       timeSlot: "13h30 - 12h30",
-      location: "1st floor in the Spire",
+      location: "1st floor in the Spire"
     },
     {
       id: 2,
       name: "test 2",
       timeSlot: "9h00 - 12h30",
-      location: "1st floor in the Spire",
-    },
+      location: "1st floor in the Spire"
+    }
   ]);
+
+  useEffect(() => {}, []);
 
   return (
     <div className="container mx-auto px-4 ">

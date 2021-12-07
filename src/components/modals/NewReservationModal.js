@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DateComponent from "../Form/DateComponent";
 import SelectComponent from "../Form/SelectComponent";
 import SlideInModal from "./SlideInModal";
+import EmployeeService from "../../services/employeeService";
 
 const NewReservationModal = ({ handleClose, isOpen }) => {
   const [buildings, setBuildings] = useState([
@@ -14,16 +15,46 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
       name: "Building B",
     },
   ]);
+  const [rooms, setRooms] = useState([
+    {
+      id: 1,
+      name: "Building A",
+    },
+    {
+      id: 2,
+      name: "Building B",
+    },
+  ]);
 
-  const [selectedBuilding, setSelectedBuilding] = useState(2);
+  const [desks, setDesks] = useState([
+    {
+      id: 1,
+      name: "Building A",
+    },
+    {
+      id: 2,
+      name: "Building B",
+    },
+  ]);
 
+  const [selectedBuilding, setSelectedBuilding] = useState(0);
+  const [selectedRoom, setSelectedRoom] = useState(0);
+  const [selectedDesk, setSelectedDesk] = useState(0);
   const [date, setDate] = useState(new Date());
+
   const [features, setFeatures] = useState([
     "Standing Desk",
     "Beside Window",
     "Desk Lamp",
     "Comfy Chair",
   ]);
+
+  useEffect(() => {
+    // Using an IIFE
+    // (async () => {
+    //   setBuildings(await loadContent());
+    // })();
+  }, []);
 
   return (
     <SlideInModal
