@@ -3,15 +3,9 @@ import EmployeeService from "../../services/EmployeeService";
 import DateComponent from "../Form/DateComponent";
 import SelectComponent from "../Form/SelectComponent";
 import SlideInModal from "./SlideInModal";
+import ReservationOverview from "../Employee/ReservationOverview";
 
 const NewReservationModal = ({ handleClose, isOpen }) => {
-  const [features, setFeatures] = useState([
-    "Standing Desk",
-    "Beside Window",
-    "Desk Lamp",
-    "Comfy Chair"
-  ]);
-
   const [rooms, setRooms] = useState([]);
   const [buildings, setbuildings] = useState([]);
   const [desks, setDesks] = useState([]);
@@ -19,6 +13,9 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
   const [selectedBuilding, setSelectedBuilding] = useState(-1);
   const [selectedRoom, setSelectedRoom] = useState(-1);
   const [selectedDesk, setSelectedDesk] = useState(-1);
+
+  const [deskInfo, setDeskInfo] = useState(null);
+
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
@@ -27,7 +24,7 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
 
   useEffect(() => {
     console.log(selectedBuilding);
-    if (selectedBuilding) {
+    if (selectedBuilding >= 0) {
       EmployeeService.getRooms(selectedBuilding).then((res) => setRooms(res));
     }
   }, [selectedBuilding]);
@@ -39,6 +36,12 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
       );
     }
   }, [selectedRoom]);
+
+  useEffect(() => {
+    if (selectedDesk >= 0) {
+      setDeskInfo(desks[selectedDesk]);
+    }
+  }, [selectedDesk]);
 
   return (
     <SlideInModal
@@ -71,39 +74,15 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
 
       <DateComponent title="Date" date={date} setDate={setDate}></DateComponent>
 
-      <div className="w-full md:w-10/12 px-3 mb-6 md:mb-0 mt-6">
-        <h3>Reservation Overview</h3>
-        <div className="flex">
-          <img
-            className="w-1/3"
-            src="https://images.pexels.com/photos/939331/pexels-photo-939331.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-          />
-          <ul>
-            <li className="mb-3 px-3">
-              <span className="font-bold">Desk:</span> D.1002
-            </li>
-            <li className="mb-3 mt-3 px-3">
-              <span className="font-bold">Room:</span> Workspace 1
-            </li>
-            <li className="mb-3 mt-3 px-3">
-              <span className="font-bold">Building:</span> The Spire
-            </li>
-            <li className="mb-3 mt-3 px-3">
-              <span className="font-bold">Date:</span> 22/11/21 between 9h00 -
-              12h30
-            </li>
-          </ul>
-        </div>
-      </div>
+      {deskInfo && (
+        <ReservationOverview
+          desk={deskInfo.name}
+          room={rooms[selectedRoom].name}
+          building={buildings[selectedBuilding].name}
+          date={"29/12"}
+        />
+      )}
 
-      <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-6">
-        <h4>Features</h4>
-        <ul className="list-disc px-6">
-          {features.map((feature, i) => {
-            return <li key={i}>{feature}</li>;
-          })}
-        </ul>
-      </div>
       <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 mt-6 flex justify-between">
         <button className="bg-indigo-900 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
           Create

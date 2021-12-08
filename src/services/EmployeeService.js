@@ -18,6 +18,14 @@ class EmployeeService {
       .then((response) => response.json())
       .then((data) => data);
   }
+
+  async getDesk(buildingId, roomId, deskId) {
+    return fetch(
+      `${process.env.REACT_APP_API_URL}building/${buildingId}/room/${roomId}/desks/${deskId}`
+    )
+      .then((response) => response.json())
+      .then((data) => data);
+  }
 }
 
 export default new EmployeeService();

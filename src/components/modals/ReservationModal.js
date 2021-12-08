@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import SlideInModal from "./SlideInModal";
 
 const ReservationModal = ({ handleClose, isOpen, reservation }) => {
-
   const [features, setFeatures] = useState([
     "Standing Desk",
     "Beside Window",
     "Desk Lamp",
-    "Comfy Chair",
+    "Comfy Chair"
   ]);
 
   return (
@@ -47,10 +46,10 @@ const ReservationModal = ({ handleClose, isOpen, reservation }) => {
       </div>
 
       <div>
-        <label class="block text-left font-bold">
-          <span class="text-gray-700 mb-2 inline-block">Textarea</span>
+        <label className="block text-left font-bold">
+          <span className="text-gray-700 mb-2 inline-block">Textarea</span>
           <textarea
-            class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
             rows="4"
             rows="3"
             placeholder="Enter some long form content."
