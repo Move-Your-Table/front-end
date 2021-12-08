@@ -23,7 +23,7 @@ const EmployeeDasboard = () => {
     }
   ]);
 
-  useEffect(() => {}, []);
+  //const { error, isPending, data: reservationsJson } = useFetch('http://localhost:8000/blogs')
 
   return (
     <div className="container mx-auto px-4 ">

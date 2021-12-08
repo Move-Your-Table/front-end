@@ -1,6 +1,12 @@
 import React from "react";
 
-const SelectComponent = ({ title, options, selected, setSelected }) => {
+const SelectComponent = ({
+  title,
+  options,
+  selected,
+  setSelected,
+  isDisabled
+}) => {
   const handleChange = (event) => {
     setSelected(event.target.value);
   };
@@ -9,24 +15,27 @@ const SelectComponent = ({ title, options, selected, setSelected }) => {
     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-6">
       <label
         className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
-        for="building"
+        htmlFor={title}
       >
         {title}
       </label>
       <div className="relative">
         <select
+          disabled={isDisabled}
           value={selected}
           onChange={handleChange}
           className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          id="building"
+          id={title}
         >
-          {options.map((item) => {
-            return (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            );
-          })}
+          <option value={-1}>Pick an item</option>
+          {options.length > 0 &&
+            options.map((item) => {
+              return (
+                <option key={item.id} value={item.id}>
+                  {item.name}
+                </option>
+              );
+            })}
         </select>
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
           <svg

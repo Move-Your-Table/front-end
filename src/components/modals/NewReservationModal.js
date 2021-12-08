@@ -1,60 +1,44 @@
 import React, { useState, useEffect } from "react";
+import EmployeeService from "../../services/EmployeeService";
 import DateComponent from "../Form/DateComponent";
 import SelectComponent from "../Form/SelectComponent";
 import SlideInModal from "./SlideInModal";
-import EmployeeService from "../../services/employeeService";
 
 const NewReservationModal = ({ handleClose, isOpen }) => {
-  const [buildings, setBuildings] = useState([
-    {
-      id: 1,
-      name: "Building A",
-    },
-    {
-      id: 2,
-      name: "Building B",
-    },
-  ]);
-  const [rooms, setRooms] = useState([
-    {
-      id: 1,
-      name: "Building A",
-    },
-    {
-      id: 2,
-      name: "Building B",
-    },
-  ]);
-
-  const [desks, setDesks] = useState([
-    {
-      id: 1,
-      name: "Building A",
-    },
-    {
-      id: 2,
-      name: "Building B",
-    },
-  ]);
-
-  const [selectedBuilding, setSelectedBuilding] = useState(0);
-  const [selectedRoom, setSelectedRoom] = useState(0);
-  const [selectedDesk, setSelectedDesk] = useState(0);
-  const [date, setDate] = useState(new Date());
-
   const [features, setFeatures] = useState([
     "Standing Desk",
     "Beside Window",
     "Desk Lamp",
-    "Comfy Chair",
+    "Comfy Chair"
   ]);
 
+  const [rooms, setRooms] = useState([]);
+  const [buildings, setbuildings] = useState([]);
+  const [desks, setDesks] = useState([]);
+
+  const [selectedBuilding, setSelectedBuilding] = useState(-1);
+  const [selectedRoom, setSelectedRoom] = useState(-1);
+  const [selectedDesk, setSelectedDesk] = useState(-1);
+  const [date, setDate] = useState(new Date());
+
   useEffect(() => {
-    // Using an IIFE
-    // (async () => {
-    //   setBuildings(await loadContent());
-    // })();
+    EmployeeService.getBuildings().then((res) => setbuildings(res));
   }, []);
+
+  useEffect(() => {
+    console.log(selectedBuilding);
+    if (selectedBuilding) {
+      EmployeeService.getRooms(selectedBuilding).then((res) => setRooms(res));
+    }
+  }, [selectedBuilding]);
+
+  useEffect(() => {
+    if (selectedRoom >= 0 && selectedBuilding >= 0) {
+      EmployeeService.getDesks(selectedBuilding, selectedRoom).then((res) =>
+        setDesks(res)
+      );
+    }
+  }, [selectedRoom]);
 
   return (
     <SlideInModal
@@ -71,16 +55,18 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
 
       <SelectComponent
         title="Room"
-        options={buildings}
-        selected={selectedBuilding}
-        setSelected={setSelectedBuilding}
+        options={rooms}
+        selected={selectedRoom}
+        setSelected={setSelectedRoom}
+        isDisabled={selectedBuilding >= 0 ? false : true}
       />
 
       <SelectComponent
         title="Desk"
-        options={buildings}
-        selected={selectedBuilding}
-        setSelected={setSelectedBuilding}
+        options={desks}
+        selected={selectedDesk}
+        setSelected={setSelectedDesk}
+        isDisabled={selectedRoom >= 0 && selectedBuilding >= 0 ? false : true}
       />
 
       <DateComponent title="Date" date={date} setDate={setDate}></DateComponent>
