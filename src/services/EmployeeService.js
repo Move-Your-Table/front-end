@@ -26,6 +26,12 @@ class EmployeeService {
       .then((response) => response.json())
       .then((data) => data);
   }
+
+  async getReservations() {
+    return fetch(`${process.env.REACT_APP_API_URL}reservations?userId=1`) //Because we dont use authentication default user is 1
+      .then((response) => response.json())
+      .then((data) => data);
+  }
 }
 
 export default new EmployeeService();

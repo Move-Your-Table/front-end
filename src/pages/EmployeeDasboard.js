@@ -4,26 +4,19 @@ import NewReservationModal from "../components/modals/NewReservationModal";
 import ReservationModal from "../components/modals/ReservationModal";
 import SlideInModal from "../components/modals/SlideInModal";
 import EmployeeNavigation from "../components/Navigation/EmployeeNavigation";
+import EmployeeService from "../services/EmployeeService";
 
 const EmployeeDasboard = () => {
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
 
-  const [reservationsJson, setReservationsJson] = useState([
-    {
-      id: 1,
-      name: "test",
-      timeSlot: "13h30 - 12h30",
-      location: "1st floor in the Spire"
-    },
-    {
-      id: 2,
-      name: "test 2",
-      timeSlot: "9h00 - 12h30",
-      location: "1st floor in the Spire"
-    }
-  ]);
+  const [reservationsJson, setReservationsJson] = useState(null);
 
   //const { error, isPending, data: reservationsJson } = useFetch('http://localhost:8000/blogs')
+
+  useEffect(() => {
+    EmployeeService.getReservations().then((res) => setReservationsJson(res));
+    console.log(reservationsJson);
+  }, []);
 
   return (
     <div className="container mx-auto px-4 ">
