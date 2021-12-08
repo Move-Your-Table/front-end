@@ -1,31 +1,75 @@
 import React from "react";
+import { enableRipple } from "@syncfusion/ej2-base";
+import { TimePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-function DateComponent({ title, date, setDate }) {
+function DateComponent({
+  title,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate
+}) {
+  function changeStartTime(e) {
+    const time = new Date(e.value);
+    const newTime = new Date(startDate);
+    newTime.setHours(time.getHours());
+    newTime.setMinutes(time.getMinutes());
+
+    setStartDate(newTime);
+  }
+
+  function changeEndTime(e) {
+    const newEnd = new Date(startDate);
+    const end = new Date(e.value);
+    newEnd.setHours(end.getHours());
+    newEnd.setMinutes(end.getMinutes());
+
+    console.log(newEnd);
+    setEndDate(newEnd);
+  }
+  function changeDate(e) {
+    setStartDate(new Date(e));
+  }
+
+  function newStartDate() {
+    const temp = new Date(startDate);
+    temp.setMinutes(temp.getMinutes() + 30);
+    return temp;
+  }
   return (
     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-6">
       <label className="block uppercase tracking-wide text-gray-700 font-bold mb-2 text-sm">
         {title}
       </label>
       <div className="relative">
-        <DatePicker
-          className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          selected={date}
-          onChange={(date) => setDate(date)}
-        />
-
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg
-            className="fill-current h-4 w-4"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-          </svg>
+        <div>
+          <DatePicker
+            className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            selected={startDate}
+            onChange={changeDate}
+          />
         </div>
+
+        <label className="block uppercase tracking-wide text-gray-700 font-bold mb-1 mt-4 text-sm">
+          Start Time
+        </label>
+        <TimePickerComponent
+          onChange={changeStartTime}
+          min={new Date("08/12/2021 9:00")}
+          max={new Date("08/12/2021 16:00")}
+        />
+        <label className="block uppercase tracking-wide text-gray-700 font-bold mb-1 mt-4 text-sm">
+          End Time
+        </label>
+        <TimePickerComponent
+          onChange={changeEndTime}
+          min={new Date(newStartDate())}
+          max={new Date("08/12/2021 16:00")}
+        />
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 const ReservationOverview = ({ desk, room, building, date }) => {
   const [features, setFeatures] = useState([
     "Standing Desk",

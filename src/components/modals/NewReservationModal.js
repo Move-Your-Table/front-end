@@ -16,7 +16,8 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
 
   const [deskInfo, setDeskInfo] = useState(null);
 
-  const [date, setDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date("08/12/2021 9:00"));
+  const [endDate, setEndDate] = useState(new Date("08/12/2021 16:00"));
 
   useEffect(() => {
     EmployeeService.getBuildings().then((res) => setbuildings(res));
@@ -40,6 +41,7 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
   useEffect(() => {
     if (selectedDesk >= 0) {
       setDeskInfo(desks[selectedDesk]);
+      console.log(deskInfo);
     }
   }, [selectedDesk]);
 
@@ -72,7 +74,13 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
         isDisabled={selectedRoom >= 0 && selectedBuilding >= 0 ? false : true}
       />
 
-      <DateComponent title="Date" date={date} setDate={setDate}></DateComponent>
+      <DateComponent
+        title="Date"
+        startDate={startDate}
+        setStartDate={setStartDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
+      ></DateComponent>
 
       {deskInfo && (
         <ReservationOverview
