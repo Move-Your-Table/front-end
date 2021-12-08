@@ -45,6 +45,22 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
     }
   }, [selectedDesk]);
 
+  useEffect(() => {
+    if (deskInfo && deskInfo.reservations.length > 0) {
+      deskInfo.reservations.map((res) => {
+        const start1 = new Date(res.endTime);
+        const end1 = new Date(res.startTime);
+        if (start1 <= endDate && startDate <= end1) {
+          console.log(
+            "Overlapping reservation on",
+            `${start1.getHours()}:${start1.getMinutes()}`,
+            `${end1.getHours()}:${end1.getMinutes()}`
+          );
+        }
+      });
+    }
+  }, [startDate, endDate]);
+
   return (
     <SlideInModal
       handleClose={handleClose}

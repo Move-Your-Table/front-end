@@ -68,7 +68,7 @@ function DateComponent({
         <TimePickerComponent
           onChange={changeEndTime}
           min={new Date(newStartDate())}
-          max={new Date("08/12/2021 16:00")}
+          max={new Date("08/12/2021 20:00")}
         />
       </div>
     </div>
