@@ -41,12 +41,13 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
   useEffect(() => {
     if (selectedDesk >= 0) {
       setDeskInfo(desks[selectedDesk]);
-      console.log(deskInfo);
+      console.log(desks[selectedDesk]);
     }
   }, [selectedDesk]);
 
   useEffect(() => {
     if (deskInfo && deskInfo.reservations.length > 0) {
+      //Check if date is the same and loop over each reservation
       deskInfo.reservations.map((res) => {
         const start1 = new Date(res.endTime);
         const end1 = new Date(res.startTime);

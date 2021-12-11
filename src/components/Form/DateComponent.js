@@ -14,8 +14,8 @@ function DateComponent({
   setEndDate
 }) {
   function changeStartTime(e) {
-    const time = new Date(e.value);
     const newTime = new Date(startDate);
+    const time = new Date(e.value);
     newTime.setHours(time.getHours());
     newTime.setMinutes(time.getMinutes());
 
@@ -27,11 +27,14 @@ function DateComponent({
     const end = new Date(e.value);
     newEnd.setHours(end.getHours());
     newEnd.setMinutes(end.getMinutes());
-
-    console.log(newEnd);
     setEndDate(newEnd);
   }
   function changeDate(e) {
+    const newEnd = new Date(new Date(e));
+    const end = new Date(endDate);
+    newEnd.setHours(end.getHours());
+    newEnd.setMinutes(end.getMinutes());
+    setEndDate(newEnd);
     setStartDate(new Date(e));
   }
 
