@@ -12,7 +12,7 @@ const SelectComponent = ({
   };
 
   return (
-    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-6">
+    <div className="w-full md:w-1/3 px-3 mb-4 mt-2">
       <label
         className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
         htmlFor={title}

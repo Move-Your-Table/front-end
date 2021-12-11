@@ -11,10 +11,13 @@ const ReservationOverview = ({ desk, room, building, date }) => {
       {true && (
         <div>
           <div className="w-full md:w-10/12 px-3 mb-6 md:mb-0 mt-6">
-            <h3>Reservation Overview</h3>
+            <h3 className="block uppercase tracking-wide text-gray-700 font-bold mb-2 text-sm">
+              Reservation Overview
+            </h3>
             <div className="flex">
               <img
                 className="w-1/3"
+                alt="image"
                 src="https://images.pexels.com/photos/939331/pexels-photo-939331.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
               />
               <ul>
@@ -35,7 +38,9 @@ const ReservationOverview = ({ desk, room, building, date }) => {
           </div>
 
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-6">
-            <h4>Features</h4>
+            <h4 className="block uppercase tracking-wide text-gray-700 font-bold mb-2 text-sm">
+              Features
+            </h4>
             <ul className="list-disc px-6">
               {features.map((feature, i) => {
                 return <li key={i}>{feature}</li>;

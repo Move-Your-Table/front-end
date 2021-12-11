@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const modalVariant = {
   initial: { opacity: 0 },
   isOpen: { opacity: 1 },
-  exit: { opacity: 0 },
+  exit: { opacity: 0 }
 };
 
 const SlideInModal = ({ handleClose, children, isOpen, title }) => {
@@ -72,7 +72,7 @@ const SlideInModal = ({ handleClose, children, isOpen, title }) => {
                         {title ? title : "Default title"}
                       </h2>
                     </div>
-                    <div className="mt-6 relative flex-1 px-4 sm:px-6">
+                    <div className="mt-2 mb-6 relative flex-1 px-4">
                       <div className="absolute inset-0 px-4 sm:px-6">
                         <div
                           className="h-full  border-gray-200"

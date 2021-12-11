@@ -4,6 +4,7 @@ import DateTimeComponent from "../Form/DateTimeComponent";
 import SelectComponent from "../Form/SelectComponent";
 import SlideInModal from "./SlideInModal";
 import ReservationOverview from "../Employee/ReservationOverview";
+import { ErrorMessageComponent } from "../Form/ErrorMessageComponent";
 
 const NewReservationModal = ({ handleClose, isOpen }) => {
   const [rooms, setRooms] = useState([]);
@@ -22,6 +23,7 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
   const [endDate, setEndDate] = useState(now.setHours(16));
 
   const [isValidTime, setIsValidTime] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     EmployeeService.getBuildings().then((res) => setbuildings(res));
@@ -57,12 +59,12 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
         const start1 = new Date(res.endTime);
         const end1 = new Date(res.startTime);
         if (start1 <= endDate && startDate <= end1) {
-          console.log(
+          setIsValidTime(false);
+          setErrorMsg(
             "Overlapping reservation on",
             `${start1.getHours()}:${start1.getMinutes()}`,
             `${end1.getHours()}:${end1.getMinutes()}`
           );
-          setIsValidTime(false);
         } else {
           setIsValidTime(true);
         }
@@ -108,6 +110,8 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
         setEndDate={setEndDate}
       ></DateTimeComponent>
 
+      <ErrorMessageComponent showing={!isValidTime} message={errorMsg} />
+
       {deskInfo && selectedRoom >= 0 && selectedBuilding >= 0 && (
         <ReservationOverview
           desk={deskInfo.name}
@@ -117,7 +121,7 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
         />
       )}
 
-      <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-6 flex justify-between">
+      <div className="w-full md:w-1/3 px-3 mb-6 mt-6 flex justify-between">
         <button
           className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={makeReservation}
