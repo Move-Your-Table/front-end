@@ -59,7 +59,7 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
         }
       });
     }
-  }, [startDate, endDate]);
+  }, [startDate, endDate, selectedBuilding, selectedDesk, selectedRoom]);
 
   return (
     <SlideInModal
