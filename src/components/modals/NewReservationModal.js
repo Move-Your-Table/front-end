@@ -27,6 +27,8 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
     console.log(selectedBuilding);
     if (selectedBuilding >= 0) {
       EmployeeService.getRooms(selectedBuilding).then((res) => setRooms(res));
+      setSelectedRoom(-1);
+      setSelectedDesk(-1);
     }
   }, [selectedBuilding]);
 
@@ -35,15 +37,17 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
       EmployeeService.getDesks(selectedBuilding, selectedRoom).then((res) =>
         setDesks(res)
       );
+      setSelectedDesk(-1);
     }
-  }, [selectedRoom]);
+  }, [selectedRoom, selectedBuilding]);
 
   useEffect(() => {
     if (selectedDesk >= 0) {
       setDeskInfo(desks[selectedDesk]);
       console.log(desks[selectedDesk]);
     }
-  }, [selectedDesk]);
+    setDeskInfo(null);
+  }, [selectedRoom, selectedBuilding, selectedDesk]);
 
   useEffect(() => {
     if (deskInfo && deskInfo.reservations.length > 0) {
