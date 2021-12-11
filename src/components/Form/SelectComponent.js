@@ -27,7 +27,7 @@ const SelectComponent = ({
           className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           id={title}
         >
-          {isDisabled && <option value={-1}>Pick an item</option>}
+          {selected < 0 && <option value={-1}>Pick an item</option>}
 
           {options.length > 0 &&
             options.map((item) => {
