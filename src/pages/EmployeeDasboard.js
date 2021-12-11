@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import UpcommingReservationsList from "../components/Employee/UpcommingReservationsList";
+import ReservationsList from "../components/Employee/ReservationsList";
 import NewReservationModal from "../components/modals/NewReservationModal";
 import ReservationModal from "../components/modals/ReservationModal";
 import SlideInModal from "../components/modals/SlideInModal";
@@ -35,7 +35,7 @@ const EmployeeDasboard = () => {
             </button>
           </div>
 
-          <UpcommingReservationsList reservations={reservationsJson} />
+          <ReservationsList reservations={reservationsJson} />
         </div>
         <div className="flex flex-1 flex-col">
           {/* <h2 className="mb-8 text-xl">Past reservations</h2>

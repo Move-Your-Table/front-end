@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import EmployeeService from "../../services/EmployeeService";
-import DateComponent from "../Form/DateComponent";
+import DateTimeComponent from "../Form/DateTimeComponent";
 import SelectComponent from "../Form/SelectComponent";
 import SlideInModal from "./SlideInModal";
 import ReservationOverview from "../Employee/ReservationOverview";
@@ -16,8 +16,10 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
 
   const [deskInfo, setDeskInfo] = useState(null);
 
-  const [startDate, setStartDate] = useState(new Date("08/12/2021 9:00"));
-  const [endDate, setEndDate] = useState(new Date("08/12/2021 16:00"));
+  const now = new Date();
+  now.setMinutes(0);
+  const [startDate, setStartDate] = useState(now.setHours(9));
+  const [endDate, setEndDate] = useState(now.setHours(16));
 
   useEffect(() => {
     EmployeeService.getBuildings().then((res) => setbuildings(res));
@@ -92,12 +94,12 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
         isDisabled={selectedRoom >= 0 && selectedBuilding >= 0 ? false : true}
       />
 
-      <DateComponent
+      <DateTimeComponent
         startDate={startDate}
         setStartDate={setStartDate}
         endDate={endDate}
         setEndDate={setEndDate}
-      ></DateComponent>
+      ></DateTimeComponent>
 
       {deskInfo && (
         <ReservationOverview

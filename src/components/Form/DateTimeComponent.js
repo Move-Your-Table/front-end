@@ -56,6 +56,7 @@ function DateComponent({ startDate, setStartDate, endDate, setEndDate }) {
         </label>
         <TimePickerComponent
           onChange={changeStartTime}
+          value={new Date(startDate)}
           min={new Date("08/12/2021 9:00")}
           max={new Date("08/12/2021 16:00")}
         />
@@ -67,6 +68,7 @@ function DateComponent({ startDate, setStartDate, endDate, setEndDate }) {
         </label>
         <TimePickerComponent
           onChange={changeEndTime}
+          value={new Date(endDate)}
           min={new Date(newStartDate())}
           max={new Date("08/12/2021 20:00")}
         />
