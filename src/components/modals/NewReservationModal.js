@@ -21,6 +21,8 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
   const [startDate, setStartDate] = useState(now.setHours(9));
   const [endDate, setEndDate] = useState(now.setHours(16));
 
+  const [isValidTime, setIsValidTime] = useState(true);
+
   useEffect(() => {
     EmployeeService.getBuildings().then((res) => setbuildings(res));
   }, []);
@@ -60,10 +62,15 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
             `${start1.getHours()}:${start1.getMinutes()}`,
             `${end1.getHours()}:${end1.getMinutes()}`
           );
+          setIsValidTime(false);
+        } else {
+          setIsValidTime(true);
         }
       });
     }
-  }, [startDate, endDate, selectedBuilding, selectedDesk, selectedRoom]);
+  }, [startDate, endDate, deskInfo]);
+
+  function makeReservation() {}
 
   return (
     <SlideInModal
@@ -101,7 +108,7 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
         setEndDate={setEndDate}
       ></DateTimeComponent>
 
-      {deskInfo && (
+      {deskInfo && selectedRoom >= 0 && selectedBuilding >= 0 && (
         <ReservationOverview
           desk={deskInfo.name}
           room={rooms[selectedRoom].name}
@@ -110,8 +117,12 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
         />
       )}
 
-      <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 mt-6 flex justify-between">
-        <button className="bg-indigo-900 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+      <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-6 flex justify-between">
+        <button
+          className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+          onClick={makeReservation}
+          disabled={!(deskInfo && isValidTime)}
+        >
           Create
         </button>
         <button className="text-white hover:bg-blue-700 font-bold py-1 px-4 rounded-full bg-red-600">
