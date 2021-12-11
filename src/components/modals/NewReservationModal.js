@@ -24,11 +24,10 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
   }, []);
 
   useEffect(() => {
-    console.log(selectedBuilding);
     if (selectedBuilding >= 0) {
       EmployeeService.getRooms(selectedBuilding).then((res) => setRooms(res));
+      setDeskInfo(null);
       setSelectedRoom(-1);
-      setSelectedDesk(-1);
     }
   }, [selectedBuilding]);
 
@@ -37,17 +36,16 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
       EmployeeService.getDesks(selectedBuilding, selectedRoom).then((res) =>
         setDesks(res)
       );
+      setDeskInfo(null);
       setSelectedDesk(-1);
     }
-  }, [selectedRoom, selectedBuilding]);
+  }, [selectedRoom]);
 
   useEffect(() => {
     if (selectedDesk >= 0) {
       setDeskInfo(desks[selectedDesk]);
-      console.log(desks[selectedDesk]);
     }
-    setDeskInfo(null);
-  }, [selectedRoom, selectedBuilding, selectedDesk]);
+  }, [selectedDesk]);
 
   useEffect(() => {
     if (deskInfo && deskInfo.reservations.length > 0) {
@@ -95,7 +93,6 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
       />
 
       <DateComponent
-        title="Date"
         startDate={startDate}
         setStartDate={setStartDate}
         endDate={endDate}

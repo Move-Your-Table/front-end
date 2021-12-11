@@ -6,13 +6,7 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-function DateComponent({
-  title,
-  startDate,
-  setStartDate,
-  endDate,
-  setEndDate
-}) {
+function DateComponent({ startDate, setStartDate, endDate, setEndDate }) {
   function changeStartTime(e) {
     const newTime = new Date(startDate);
     const time = new Date(e.value);
@@ -44,20 +38,20 @@ function DateComponent({
     return temp;
   }
   return (
-    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-6">
-      <label className="block uppercase tracking-wide text-gray-700 font-bold mb-2 text-sm">
-        {title}
-      </label>
+    <div className="w-full px-3 mb-6 md:mb-0 mt-6 relative flex justify-between">
       <div className="relative">
-        <div>
-          <DatePicker
-            className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            selected={startDate}
-            onChange={changeDate}
-          />
-        </div>
+        <label className="block uppercase tracking-wide text-gray-700 font-bold mb-2 text-sm">
+          Date
+        </label>
+        <DatePicker
+          className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          selected={startDate}
+          onChange={changeDate}
+        />
+      </div>
 
-        <label className="block uppercase tracking-wide text-gray-700 font-bold mb-1 mt-4 text-sm">
+      <div className="flex flex-col justify-between">
+        <label className="block uppercase tracking-wide text-gray-700 font-bold mb-2 text-sm">
           Start Time
         </label>
         <TimePickerComponent
@@ -65,7 +59,10 @@ function DateComponent({
           min={new Date("08/12/2021 9:00")}
           max={new Date("08/12/2021 16:00")}
         />
-        <label className="block uppercase tracking-wide text-gray-700 font-bold mb-1 mt-4 text-sm">
+      </div>
+
+      <div className="flex flex-col justify-between">
+        <label className="block uppercase tracking-wide text-gray-700 font-bold mb-2 text-sm">
           End Time
         </label>
         <TimePickerComponent
