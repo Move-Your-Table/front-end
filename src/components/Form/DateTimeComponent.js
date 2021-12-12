@@ -1,5 +1,4 @@
 import React from "react";
-import { enableRipple } from "@syncfusion/ej2-base";
 import { TimePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 import DatePicker from "react-datepicker";

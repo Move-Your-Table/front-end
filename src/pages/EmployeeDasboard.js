@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReservationsList from "../components/Employee/ReservationsList";
 import NewReservationModal from "../components/modals/NewReservationModal";
-import ReservationModal from "../components/modals/ReservationModal";
 import SlideInModal from "../components/modals/SlideInModal";
 import EmployeeNavigation from "../components/Navigation/EmployeeNavigation";
 import EmployeeService from "../services/EmployeeService";
