@@ -55,11 +55,11 @@ export const TableComponent = ({ headers, data, onDelete, onEdit }) => {
                           )}
                           {onEdit && (
                             <button
-                              onClick={onDelete}
+                              onClick={onEdit}
                               type="button"
                               className="mr-3 text-sm  bg-indigo-500 hover:bg-indigo-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                             >
-                              Save
+                              Edit
                             </button>
                           )}
                         </div>
