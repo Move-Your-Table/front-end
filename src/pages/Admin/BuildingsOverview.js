@@ -36,7 +36,16 @@ const BuildingsOverview = () => {
     <div className="container mx-auto px-4 ">
       <h1>Test</h1>
       {buildingsJson !== null ? (
-        <TableComponent headers={headers} data={buildingsJson} />
+        <TableComponent
+          headers={headers}
+          data={buildingsJson}
+          onDelete={() => {
+            console.log("test");
+          }}
+          onEdit={() => {
+            console.log("Edit");
+          }}
+        />
       ) : (
         <h2>Loading..</h2>
       )}

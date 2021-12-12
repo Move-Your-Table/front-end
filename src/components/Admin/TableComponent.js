@@ -1,7 +1,11 @@
 import React from "react";
 
-export const TableComponent = ({ headers, data, actions }) => {
+export const TableComponent = ({ headers, data, onDelete, onEdit }) => {
   console.log(data);
+
+  function renderActions() {
+    return onDelete || onEdit;
+  }
   return (
     <section className="container mx-auto font-mono">
       <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
@@ -16,7 +20,7 @@ export const TableComponent = ({ headers, data, actions }) => {
                     </th>
                   );
                 })}
-                {actions && (
+                {renderActions() && (
                   <th scope="col" key={"Actions"} className="px-4 py-3">
                     Actions
                   </th>
@@ -37,15 +41,30 @@ export const TableComponent = ({ headers, data, actions }) => {
                         </td>
                       );
                     })}
-                    {actions &&
-                      actions.map((action, index) => {
-                        <td
-                          key={`${item.id} ${index}`}
-                          className="px-4 py-3 text-ms font-semibold border"
-                        >
-                          action
-                        </td>;
-                      })}
+                    {renderActions() && (
+                      <td className="px-4 py-3 text-ms font-semibold border">
+                        <div className="flex justify-around">
+                          {onDelete && (
+                            <button
+                              type="button"
+                              className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                              onClick={onDelete}
+                            >
+                              Delete
+                            </button>
+                          )}
+                          {onEdit && (
+                            <button
+                              onClick={onDelete}
+                              type="button"
+                              className="mr-3 text-sm  bg-indigo-500 hover:bg-indigo-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                            >
+                              Save
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    )}
                   </tr>
                 );
               })}
