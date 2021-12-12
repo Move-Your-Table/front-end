@@ -17,7 +17,7 @@ const ReservationOverview = ({ desk, room, building, date }) => {
             <div className="flex">
               <img
                 className="w-1/3"
-                alt="image"
+                alt="Desk"
                 src="https://images.pexels.com/photos/939331/pexels-photo-939331.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
               />
               <ul>
@@ -38,7 +38,7 @@ const ReservationOverview = ({ desk, room, building, date }) => {
           </div>
 
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-6">
-            <h4 className="block uppercase tracking-wide text-gray-700 font-bold mb-2 text-sm">
+            <h4 className="block uppercase tracking-wide text-gray-700 font-bold mb-2 text-sm ">
               Features
             </h4>
             <ul className="list-disc px-6">

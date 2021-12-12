@@ -8,6 +8,7 @@ const ReservationModal = ({ handleClose, isOpen, reservation }) => {
     "Desk Lamp",
     "Comfy Chair"
   ]);
+  console.log(reservation);
 
   return (
     <SlideInModal
