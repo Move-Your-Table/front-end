@@ -26,9 +26,9 @@ export const TableComponent = ({ headers, data, onDelete, onEdit }) => {
               </tr>
             </thead>
             <tbody className="bg-white">
-              {data.map((item) => {
+              {data.map((item, index) => {
                 return (
-                  <tr className="text-gray-700">
+                  <tr className="text-gray-700" key={`r${index}`}>
                     {Object.keys(item).map((key, index) => {
                       return (
                         <td
@@ -40,7 +40,10 @@ export const TableComponent = ({ headers, data, onDelete, onEdit }) => {
                       );
                     })}
                     {renderActions() && (
-                      <td className="px-4 py-3 text-ms font-semibold border">
+                      <td
+                        className="px-4 py-3 text-ms font-semibold border"
+                        key={`${item.id} actions`}
+                      >
                         <div className="flex justify-around">
                           {onDelete && (
                             <button
