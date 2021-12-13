@@ -1,10 +1,7 @@
 import React from "react";
+import TimeFormater from "../util/TimeFormater";
 
 const ReservationCard = ({ reservation, onClickHandler }) => {
-  function formatTime() {
-    const date = new Date(reservation.endTime);
-    return `${date.getDay()}/${date.getMonth()}`;
-  }
   return (
     <div
       className="max-w-sm rounded overflow-hidden shadow-lg"
@@ -20,12 +17,17 @@ const ReservationCard = ({ reservation, onClickHandler }) => {
 
       <div className="px-6 py-4">
         <ul>
-          <li>Name: {reservation.name}</li>
-          <li>
-            TimeSlot:
-            {formatTime()}
+          <li className="font-bold text-xl mb-2">{reservation.desk.name}</li>
+          <li className="mb-1">
+            {TimeFormater.formatDate(reservation.startTime)}
           </li>
-          <li>Location: {reservation.location}</li>
+          <li>
+            {TimeFormater.formatTime(
+              reservation.startTime,
+              reservation.endTime
+            )}
+          </li>
+          <li>{reservation.location}</li>
         </ul>
       </div>
     </div>

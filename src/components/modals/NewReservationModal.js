@@ -50,6 +50,7 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
   useEffect(() => {
     if (selectedDesk >= 0) {
       setDeskInfo(desks[selectedDesk]);
+      console.log(desks[selectedDesk]);
     }
   }, [selectedDesk]);
 
@@ -118,6 +119,7 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
           room={rooms[selectedRoom].name}
           building={buildings[selectedBuilding].name}
           date={"29/12"}
+          features={deskInfo.features}
         />
       )}
 
