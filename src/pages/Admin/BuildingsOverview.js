@@ -13,12 +13,19 @@ const BuildingsOverview = () => {
     "Location"
   ];
   const [buildingsJson, setbuildingsJson] = useState(null);
+  const [searchString, setSearchString] = useState("");
 
   useEffect(() => {
     AdminService.getBuildings().then((res) => {
       setbuildingsJson(formatJson(res));
     });
   }, []);
+
+  useEffect(() => {
+    if (searchString.length > 0) {
+      console.log("searching");
+    }
+  }, [searchString]);
 
   function formatJson(res) {
     let newArray = [];
@@ -40,7 +47,7 @@ const BuildingsOverview = () => {
       <div className="container flex flex-col gap-10">
         <div>
           <h1 className="text-xl mb-4">Buildings</h1>
-          <SearchComponent />
+          <SearchComponent onChangeFunction={setSearchString} />
         </div>
 
         {buildingsJson !== null ? (
