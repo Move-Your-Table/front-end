@@ -1,8 +1,6 @@
 import React from "react";
 
 export const TableComponent = ({ headers, data, onDelete, onEdit }) => {
-  console.log(data);
-
   function renderActions() {
     return onDelete || onEdit;
   }
@@ -48,14 +46,14 @@ export const TableComponent = ({ headers, data, onDelete, onEdit }) => {
                             <button
                               type="button"
                               className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                              onClick={onDelete}
+                              onClick={() => onDelete(item)}
                             >
                               Delete
                             </button>
                           )}
                           {onEdit && (
                             <button
-                              onClick={onEdit}
+                              onClick={() => onEdit(item)}
                               type="button"
                               className="mr-3 text-sm  bg-indigo-500 hover:bg-indigo-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                             >

@@ -12,17 +12,20 @@ const BuildingsOverview = () => {
     "Total desks",
     "Location"
   ];
-
   const [buildingsJson, setbuildingsJson] = useState(null);
   const [searchString, setSearchString] = useState("");
 
-  useEffect(() => {
+  const fetchBuildings = () => {
     AdminService.getBuildings().then((res) => {
       setbuildingsJson(formatJson(res));
     });
+  };
+
+  useEffect(() => {
+    fetchBuildings();
   }, []);
 
-  function formatJson(res) {
+  const formatJson = (res) => {
     let newArray = [];
     res.map((item) => {
       newArray.push({
@@ -34,7 +37,8 @@ const BuildingsOverview = () => {
       });
     });
     return newArray;
-  }
+  };
+
   const filterBuilding = (item) => {
     const itemName = item.name.toLowerCase();
     return itemName.includes(searchString.toLowerCase());
@@ -53,8 +57,10 @@ const BuildingsOverview = () => {
           <TableComponent
             headers={headers}
             data={buildingsJson.filter(filterBuilding)}
-            onDelete={() => {
-              console.log("test");
+            onDelete={(building) => {
+              AdminService.removeBuilding(building.id).then((r) =>
+                fetchBuildings()
+              );
             }}
             onEdit={() => {
               console.log("Edit");
