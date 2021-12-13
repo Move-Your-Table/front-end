@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SlideInModal from "./SlideInModal";
 import TimeFormater from "../util/TimeFormater";
+import EmployeeService from "../../services/EmployeeService";
 
 const ReservationModal = ({ handleClose, isOpen, reservation }) => {
-  console.log("res", reservation);
-  const [features, setFeatures] = useState([
-    "Standing Desk",
-    "Beside Window",
-    "Desk Lamp",
-    "Comfy Chair"
-  ]);
+  const [features, setFeatures] = useState([]);
+  useEffect(() => {
+    if (reservation) {
+      EmployeeService.getDesk(
+        reservation.building.id,
+        reservation.room.id,
+        reservation.desk.id
+      ).then((res) => setFeatures(res.features));
+    }
+  }, [reservation]);
 
   return (
     <>
@@ -56,12 +60,14 @@ const ReservationModal = ({ handleClose, isOpen, reservation }) => {
 
           <div>
             <label className="block text-left font-bold">
-              <span className="text-gray-700 mb-2 inline-block">Textarea</span>
+              <span className="text-gray-700 mb-2 inline-block">
+                Have a problem to report?
+              </span>
               <textarea
                 className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
                 rows="4"
                 rows="3"
-                placeholder="Enter some long form content."
+                placeholder="Type something here"
               ></textarea>
             </label>
           </div>
