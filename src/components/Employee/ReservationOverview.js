@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-const ReservationOverview = ({ desk, room, building, date }) => {
-  const [features] = useState([
-    "Standing Desk",
-    "Beside Window",
-    "Desk Lamp",
-    "Comfy Chair"
-  ]);
+const ReservationOverview = ({ desk, room, building, date, features }) => {
   return (
     <>
       {true && (
