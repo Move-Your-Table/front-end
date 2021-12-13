@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { TableComponent } from "../../components/Admin/TableComponent";
 import AdminService from "../../services/AdminService";
+import AdminNavigation from "../../components/Navigation/AdminNavigation";
+import { SearchComponent } from "../../components/Form/SearchComponent";
 
 const BuildingsOverview = () => {
   const headers = [
@@ -34,21 +36,28 @@ const BuildingsOverview = () => {
 
   return (
     <div className="container mx-auto px-4 ">
-      <h1>Test</h1>
-      {buildingsJson !== null ? (
-        <TableComponent
-          headers={headers}
-          data={buildingsJson}
-          onDelete={() => {
-            console.log("test");
-          }}
-          onEdit={() => {
-            console.log("Edit");
-          }}
-        />
-      ) : (
-        <h2>Loading..</h2>
-      )}
+      <AdminNavigation />
+      <div className="container flex flex-col gap-10">
+        <div>
+          <h1 className="text-xl mb-4">Buildings</h1>
+          <SearchComponent />
+        </div>
+
+        {buildingsJson !== null ? (
+          <TableComponent
+            headers={headers}
+            data={buildingsJson}
+            onDelete={() => {
+              console.log("test");
+            }}
+            onEdit={() => {
+              console.log("Edit");
+            }}
+          />
+        ) : (
+          <h2>Loading..</h2>
+        )}
+      </div>
     </div>
   );
 };
