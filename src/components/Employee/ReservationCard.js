@@ -1,25 +1,7 @@
 import React from "react";
+import TimeFormater from "../util/TimeFormater";
 
 const ReservationCard = ({ reservation, onClickHandler }) => {
-  const weekday = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
-  const formatDate = () => {
-    const date = new Date(reservation.endTime);
-    return `${weekday[date.getDay()]} ${date.getDay()}/${date.getMonth()}`;
-  };
-  const formatTime = () => {
-    const startTime = new Date(reservation.startTime);
-    const endTime = new Date(reservation.endTime);
-    return `${startTime.getHours()}h${startTime.getMinutes()} - ${endTime.getHours()}h${endTime.getMinutes()}`;
-  };
-
   return (
     <div
       className="max-w-sm rounded overflow-hidden shadow-lg"
@@ -36,8 +18,15 @@ const ReservationCard = ({ reservation, onClickHandler }) => {
       <div className="px-6 py-4">
         <ul>
           <li className="font-bold text-xl mb-2">{reservation.desk.name}</li>
-          <li className="mb-1">{formatDate()}</li>
-          <li>{formatTime()}</li>
+          <li className="mb-1">
+            {TimeFormater.formatDate(reservation.startTime)}
+          </li>
+          <li>
+            {TimeFormater.formatTime(
+              reservation.startTime,
+              reservation.endTime
+            )}
+          </li>
           <li>{reservation.location}</li>
         </ul>
       </div>
