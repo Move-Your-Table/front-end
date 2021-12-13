@@ -12,6 +12,7 @@ const BuildingsOverview = () => {
     "Total desks",
     "Location"
   ];
+
   const [buildingsJson, setbuildingsJson] = useState(null);
   const [searchString, setSearchString] = useState("");
 
@@ -20,12 +21,6 @@ const BuildingsOverview = () => {
       setbuildingsJson(formatJson(res));
     });
   }, []);
-
-  useEffect(() => {
-    if (searchString.length > 0) {
-      console.log("searching");
-    }
-  }, [searchString]);
 
   function formatJson(res) {
     let newArray = [];
@@ -40,6 +35,10 @@ const BuildingsOverview = () => {
     });
     return newArray;
   }
+  const filterBuilding = (item) => {
+    const itemName = item.name.toLowerCase();
+    return itemName.includes(searchString.toLowerCase());
+  };
 
   return (
     <div className="container mx-auto px-4 ">
@@ -53,7 +52,7 @@ const BuildingsOverview = () => {
         {buildingsJson !== null ? (
           <TableComponent
             headers={headers}
-            data={buildingsJson}
+            data={buildingsJson.filter(filterBuilding)}
             onDelete={() => {
               console.log("test");
             }}
