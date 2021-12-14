@@ -49,7 +49,13 @@ const BuildingsOverview = () => {
       <AdminNavigation />
       <div className="container flex flex-col gap-10">
         <div>
-          <h1 className="text-xl mb-4">Buildings</h1>
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-xl">Buildings</h1>
+            <button className="bg-indigo-900 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+              Create +
+            </button>
+          </div>
+
           <SearchComponent onChangeFunction={setSearchString} />
         </div>
 
