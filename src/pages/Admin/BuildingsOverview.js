@@ -19,7 +19,7 @@ const BuildingsOverview = () => {
 
   const fetchBuildings = () => {
     AdminService.getBuildings().then((res) => {
-      setbuildingsJson(formatJson(res));
+      setbuildingsJson(res);
     });
   };
 
@@ -67,7 +67,7 @@ const BuildingsOverview = () => {
         {buildingsJson !== null ? (
           <TableComponent
             headers={headers}
-            data={buildingsJson.filter(filterBuilding)}
+            data={formatJson(buildingsJson).filter(filterBuilding)}
             onDelete={(building) => {
               AdminService.removeBuilding(building.id).then((r) =>
                 fetchBuildings()
@@ -85,6 +85,7 @@ const BuildingsOverview = () => {
       <NewBuildingModal
         isOpen={isCreateModalOpen}
         handleClose={() => setCreateModalOpen((value) => !value)}
+        setBuildings={setbuildingsJson}
       />
     </div>
   );

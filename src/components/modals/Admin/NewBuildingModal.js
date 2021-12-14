@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import SlideInModal from "../SlideInModal";
 import TextInputComponent from "../../Form/TextInputComponent";
+import AdminService from "../../../services/AdminService";
 
-const NewBuildingModal = ({ handleClose, isOpen }) => {
+const NewBuildingModal = ({ handleClose, isOpen, setBuildings }) => {
   const [buildingName, setbuildingName] = useState("");
   const [country, setCountry] = useState("");
   const [postcode, setPostcode] = useState("");
@@ -10,7 +11,25 @@ const NewBuildingModal = ({ handleClose, isOpen }) => {
   const [street, setStreet] = useState("");
 
   const createBuilding = () => {
-    console.log("t");
+    AdminService.createNewBuilding(
+      street,
+      city,
+      postcode,
+      country,
+      buildingName
+    ).then((res) => {
+      setBuildings((prev) => [...prev, res]);
+      clearForm();
+    });
+  };
+
+  const clearForm = () => {
+    setbuildingName("");
+    setCountry("");
+    setPostcode("");
+    setCity("");
+    setStreet("");
+    handleClose();
   };
 
   return (
