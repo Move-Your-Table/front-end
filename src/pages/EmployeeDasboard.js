@@ -49,6 +49,7 @@ const EmployeeDasboard = () => {
       <NewReservationModal
         isOpen={isCreateModalOpen}
         handleClose={() => setCreateModalOpen((value) => !value)}
+        setReservations={setReservationsJson}
       />
     </div>
   );
