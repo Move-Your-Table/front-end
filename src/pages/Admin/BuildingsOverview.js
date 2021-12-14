@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TableComponent } from "../../components/Admin/TableComponent";
 import AdminService from "../../services/AdminService";
 import AdminNavigation from "../../components/Navigation/AdminNavigation";
+import NewBuildingModal from "../../components/modals/Admin/NewBuildingModal";
 import { SearchComponent } from "../../components/Form/SearchComponent";
 
 const BuildingsOverview = () => {
@@ -14,6 +15,7 @@ const BuildingsOverview = () => {
   ];
   const [buildingsJson, setbuildingsJson] = useState(null);
   const [searchString, setSearchString] = useState("");
+  const [isCreateModalOpen, setCreateModalOpen] = useState(false);
 
   const fetchBuildings = () => {
     AdminService.getBuildings().then((res) => {
@@ -51,7 +53,10 @@ const BuildingsOverview = () => {
         <div>
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-xl">Buildings</h1>
-            <button className="bg-indigo-900 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+            <button
+              className="bg-indigo-900 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
+              onClick={() => setCreateModalOpen((value) => !value)}
+            >
               Create +
             </button>
           </div>
@@ -76,6 +81,11 @@ const BuildingsOverview = () => {
           <h2>Loading..</h2>
         )}
       </div>
+
+      <NewBuildingModal
+        isOpen={isCreateModalOpen}
+        handleClose={() => setCreateModalOpen((value) => !value)}
+      />
     </div>
   );
 };
