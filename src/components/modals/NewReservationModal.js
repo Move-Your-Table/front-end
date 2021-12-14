@@ -80,7 +80,13 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
       deskInfo.id,
       startDate,
       endDate
-    ).then((res) => setReservations((prev) => [res, ...prev]));
+    ).then((res) => {
+      setReservations((prev) => [res, ...prev]);
+      resetForm();
+    });
+  };
+
+  const resetForm = () => {
     setDeskInfo(null);
     setSelectedRoom(-1);
     setSelectedBuilding(-1);
