@@ -32,6 +32,25 @@ class EmployeeService {
       .then((response) => response.json())
       .then((data) => data);
   }
+
+  async makeNewReservation(buildingId, roomId, deskId, startTime, endTime) {
+    return fetch(`${process.env.REACT_APP_API_URL}reservations`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        buildingId: buildingId,
+        roomId: roomId,
+        deskId: deskId,
+        startTime: startTime,
+        endTime: endTime
+      })
+    })
+      .then((response) => response.json())
+      .then((data) => data);
+  }
 }
 
 export default new EmployeeService();

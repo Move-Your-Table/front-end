@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import ReservationCard from "./ReservationCard";
 import ReservationModal from "../modals/ReservationModal";
 
-const UpcommingReservationsList = ({ reservations }) => {
+const UpcommingReservationsList = ({ reservations, setReservations }) => {
   const [isReservationModalOpen, setReservationModalOpen] = useState(false);
   const [reservation, setReservation] = useState();
+  console.log(reservations);
+
   return (
     <div className="grid grid-cols-2 gap-4">
       {reservations
@@ -24,6 +26,7 @@ const UpcommingReservationsList = ({ reservations }) => {
         isOpen={isReservationModalOpen}
         handleClose={() => setReservationModalOpen((value) => !value)}
         reservation={reservation}
+        setReservations={setReservations}
       ></ReservationModal>
     </div>
   );

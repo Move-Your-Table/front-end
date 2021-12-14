@@ -6,7 +6,7 @@ import SlideInModal from "./SlideInModal";
 import ReservationOverview from "../Employee/ReservationOverview";
 import { ErrorMessageComponent } from "../Form/ErrorMessageComponent";
 
-const NewReservationModal = ({ handleClose, isOpen }) => {
+const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
   const [rooms, setRooms] = useState([]);
   const [buildings, setbuildings] = useState([]);
   const [desks, setDesks] = useState([]);
@@ -73,7 +73,26 @@ const NewReservationModal = ({ handleClose, isOpen }) => {
     }
   }, [startDate, endDate, deskInfo]);
 
-  function makeReservation() {}
+  const makeReservation = () => {
+    EmployeeService.makeNewReservation(
+      deskInfo.buildingId,
+      deskInfo.roomId,
+      deskInfo.id,
+      startDate,
+      endDate
+    ).then((res) => {
+      setReservations((prev) => [res, ...prev]);
+      resetForm();
+    });
+  };
+
+  const resetForm = () => {
+    setDeskInfo(null);
+    setSelectedRoom(-1);
+    setSelectedBuilding(-1);
+    setSelectedDesk(-1);
+    handleClose();
+  };
 
   return (
     <SlideInModal
