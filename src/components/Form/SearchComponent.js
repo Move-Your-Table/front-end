@@ -1,6 +1,6 @@
 import React from "react";
 
-export const SearchComponent = ({ onChangeFunction }) => {
+const SearchComponent = ({ onChangeFunction }) => {
   return (
     <label className="relative block">
       <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -23,3 +23,5 @@ export const SearchComponent = ({ onChangeFunction }) => {
     </label>
   );
 };
+
+export default SearchComponent;

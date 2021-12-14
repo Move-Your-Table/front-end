@@ -3,7 +3,7 @@ import { TableComponent } from "../../components/Admin/TableComponent";
 import AdminService from "../../services/AdminService";
 import AdminNavigation from "../../components/Navigation/AdminNavigation";
 import NewBuildingModal from "../../components/modals/Admin/NewBuildingModal";
-import { SearchComponent } from "../../components/Form/SearchComponent";
+import SearchComponent from "../../components/Form/SearchComponent";
 
 const BuildingsOverview = () => {
   const headers = [
