@@ -42,10 +42,6 @@ const EmployeeDasboard = () => {
         </div>
       </div>
 
-      <SlideInModal>
-        <h1>sefse</h1>
-      </SlideInModal>
-
       <NewReservationModal
         isOpen={isCreateModalOpen}
         handleClose={() => setCreateModalOpen((value) => !value)}
