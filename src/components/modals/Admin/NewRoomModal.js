@@ -10,18 +10,36 @@ const NewRoomModal = ({ handleClose, isOpen }) => {
   const [selectedBuilding, setSelectedBuilding] = useState(-1);
 
   const [roomName, setRoomName] = useState("");
-  const [type, setType] = useState("Test");
+  const [type, setType] = useState("Room");
   const [features, setFeatures] = useState([""]);
   const [capacity, setCapacity] = useState(1);
   const [floor, setFloor] = useState(0);
 
+  const createRoom = () => {
+    AdminService.createNewBuilding(
+      street,
+      city,
+      postcode,
+      country,
+      buildingName
+    ).then((res) => {
+      clearForm();
+    });
+  };
+
+  const clearForm = () => {
+    SetBuildings("");
+    setSelectedBuilding(-1);
+    setRoomName("");
+    setFeatures([""]);
+    setCapacity(1);
+    setFloor(0);
+    handleClose();
+  };
+
   useEffect(() => {
     AdminService.getBuildings().then((res) => SetBuildings(res));
   }, []);
-
-  useEffect(() => {
-    console.log("F", features);
-  }, [features]);
 
   return (
     <SlideInModal handleClose={handleClose} isOpen={isOpen} title="New Room">
@@ -78,6 +96,11 @@ const NewRoomModal = ({ handleClose, isOpen }) => {
         label={"Capacity"}
         placeholder={"Room capacity"}
         onChange={setCapacity}
+      />
+      <NumberInputComponent
+        label={"Floor"}
+        placeholder={"Floor"}
+        onChange={setFloor}
       />
 
       {/* <div className="w-full md:w-1/3 px-3 mb-6 mt-6 flex justify-between">
