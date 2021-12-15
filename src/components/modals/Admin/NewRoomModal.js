@@ -3,6 +3,7 @@ import SlideInModal from "../SlideInModal";
 import SelectComponent from "../../Form/SelectComponent";
 import AdminService from "../../../services/AdminService";
 import TextInputComponent from "../../Form/TextInputComponent";
+import NumberInputComponent from "../../Form/NumberInputComponent";
 
 const NewRoomModal = ({ handleClose, isOpen }) => {
   const [buildings, SetBuildings] = useState([]);
@@ -67,11 +68,17 @@ const NewRoomModal = ({ handleClose, isOpen }) => {
         );
       })}
       <span
-        className="w-full md:w-1/3 px-3 mb-4 mt-2"
+        className="w-full md:w-1/3 px-3 mb-6 mt-2"
         onClick={() => setFeatures((prev) => [...prev, ""])}
       >
         Add new feature
       </span>
+
+      <NumberInputComponent
+        label={"Capacity"}
+        placeholder={"Room capacity"}
+        onChange={setCapacity}
+      />
 
       {/* <div className="w-full md:w-1/3 px-3 mb-6 mt-6 flex justify-between">
         <button
