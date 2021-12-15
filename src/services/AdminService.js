@@ -30,6 +30,28 @@ class AdminService {
       .then((response) => response.json())
       .then((data) => data);
   }
+
+  async createNewRoom(buildingId, name, type, features, capacity, floor) {
+    return fetch(
+      `${process.env.REACT_APP_API_URL}admin/building/${buildingId}/room`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: name,
+          type: type,
+          features: features,
+          capacity: capacity,
+          floor: floor
+        })
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => data);
+  }
 }
 
 export default new AdminService();

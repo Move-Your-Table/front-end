@@ -12,7 +12,7 @@ export default function EmployeeNavigation() {
         <div className="w-full block lg:flex lg:items-center lg:w-auto">
           <div className="text-sm lg:flex-grow gap-x-8 ">
             <NavLink path="/admin/buildings#" label="Desks" />
-            <NavLink path="/admin/buildings#" label="Rooms" />
+            <NavLink path="/admin/rooms#" label="Rooms" />
             <NavLink path="/admin/buildings#" label="Buildings" />
             <NavLink path="/" label="Logout" />
           </div>
