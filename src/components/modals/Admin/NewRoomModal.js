@@ -37,20 +37,29 @@ const NewRoomModal = ({ handleClose, isOpen }) => {
       />
       {features.map((f, i) => {
         return (
-          <div className="flex">
+          <div className="flex" key={i}>
             <TextInputComponent
               label={`Feature ${i}`}
               placeholder={"Feature"}
-              key={i}
-              onChange={(data) => {
+              onChange={(data) =>
                 setFeatures((prev) => {
                   prev[i] = data;
-                  return prev;
-                });
-              }}
+                  return [...prev];
+                })
+              }
+              value={f}
             />
             {i > 0 && (
-              <span className="self-end mb-6 text-3xl text-red-700 font-bold">
+              <span
+                className="self-end mb-6 text-2xl text-red-700 font-bold"
+                onClick={() => {
+                  console.log("ddd");
+                  setFeatures((prev) => {
+                    prev.splice(i, 1);
+                    return [...prev];
+                  });
+                }}
+              >
                 x
               </span>
             )}
