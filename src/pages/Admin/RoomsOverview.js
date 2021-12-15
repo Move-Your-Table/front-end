@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import NewRoomModal from "../../components/modals/Admin/NewRoomModal";
 import AdminNavigation from "../../components/Navigation/AdminNavigation";
 
 const RoomsOverview = () => {
+  const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   return (
     <div className="container mx-auto px-4 ">
       <AdminNavigation />
@@ -11,7 +13,7 @@ const RoomsOverview = () => {
             <h1 className="text-xl">Rooms</h1>
             <button
               className="bg-indigo-900 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
-              //onClick={() => setCreateModalOpen((value) => !value)}
+              onClick={() => setCreateModalOpen((value) => !value)}
             >
               Create +
             </button>
@@ -36,11 +38,11 @@ const RoomsOverview = () => {
         )} */}
       </div>
 
-      {/* <NewBuildingModal
+      <NewRoomModal
         isOpen={isCreateModalOpen}
         handleClose={() => setCreateModalOpen((value) => !value)}
-        setBuildings={setbuildingsJson}
-      /> */}
+        //setBuildings={setbuildingsJson}
+      />
     </div>
   );
 };
