@@ -7,10 +7,10 @@ import SearchComponent from "../../components/Form/SearchComponent";
 
 const BuildingsOverview = () => {
   const headers = [
-    "Number",
+    "Id",
     "Building Name",
-    "Total rooms",
-    "Total desks",
+    // "Total rooms",
+    // "Total desks",
     "Location"
   ];
   const [buildingsJson, setbuildingsJson] = useState(null);
@@ -33,8 +33,8 @@ const BuildingsOverview = () => {
       newArray.push({
         id: item.id,
         name: item.name,
-        totalRooms: item.rooms.total,
-        totalDesks: item.desks.total,
+        // totalRooms: item.rooms.total,
+        // totalDesks: item.desks.total,
         location: `${item.street}, ${item.postcode} ${item.city}, ${item.country}`
       });
     });
