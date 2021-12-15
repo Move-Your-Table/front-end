@@ -16,19 +16,20 @@ const NewRoomModal = ({ handleClose, isOpen }) => {
   const [floor, setFloor] = useState(0);
 
   const createRoom = () => {
-    AdminService.createNewBuilding(
-      street,
-      city,
-      postcode,
-      country,
-      buildingName
+    AdminService.createNewRoom(
+      selectedBuilding,
+      roomName,
+      type,
+      features,
+      capacity,
+      floor
     ).then((res) => {
+      console.log(res);
       clearForm();
     });
   };
 
   const clearForm = () => {
-    SetBuildings("");
     setSelectedBuilding(-1);
     setRoomName("");
     setFeatures([""]);
@@ -103,10 +104,10 @@ const NewRoomModal = ({ handleClose, isOpen }) => {
         onChange={setFloor}
       />
 
-      {/* <div className="w-full md:w-1/3 px-3 mb-6 mt-6 flex justify-between">
+      <div className="w-full md:w-1/3 px-3 mb-6 mt-6 flex justify-between">
         <button
           className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
-          onClick={createBuilding}
+          onClick={createRoom}
         >
           Create
         </button>
@@ -116,7 +117,7 @@ const NewRoomModal = ({ handleClose, isOpen }) => {
         >
           Cancel
         </button>
-      </div> */}
+      </div>
     </SlideInModal>
   );
 };
