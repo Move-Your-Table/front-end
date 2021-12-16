@@ -30,15 +30,19 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
   }, []);
 
   useEffect(() => {
-    if (selectedBuilding >= 0) {
-      EmployeeService.getRooms(selectedBuilding).then((res) => setRooms(res));
+    if (selectedBuilding != -1) {
+      console.log(selectedBuilding);
+      EmployeeService.getRooms(selectedBuilding).then((res) => {
+        console.log(res);
+        setRooms(res);
+      });
       setDeskInfo(null);
       setSelectedRoom(-1);
     }
   }, [selectedBuilding]);
 
   useEffect(() => {
-    if (selectedRoom >= 0 && selectedBuilding >= 0) {
+    if (selectedRoom != -1 && selectedBuilding != -1) {
       EmployeeService.getDesks(selectedBuilding, selectedRoom).then((res) =>
         setDesks(res)
       );
@@ -112,7 +116,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
         options={rooms}
         selected={selectedRoom}
         setSelected={setSelectedRoom}
-        isDisabled={selectedBuilding >= 0 ? false : true}
+        isDisabled={selectedBuilding != -1 ? false : true}
       />
 
       <SelectComponent
@@ -120,7 +124,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
         options={desks}
         selected={selectedDesk}
         setSelected={setSelectedDesk}
-        isDisabled={selectedRoom >= 0 && selectedBuilding >= 0 ? false : true}
+        isDisabled={selectedRoom != -1 && selectedBuilding != -1 ? false : true}
       />
 
       <DateTimeComponent
@@ -132,7 +136,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
 
       <ErrorMessageComponent showing={!isValidTime} message={errorMsg} />
 
-      {deskInfo && selectedRoom >= 0 && selectedBuilding >= 0 && (
+      {deskInfo && selectedRoom != -1 && selectedBuilding != -1 && (
         <ReservationOverview
           desk={deskInfo.name}
           room={rooms[selectedRoom].name}
