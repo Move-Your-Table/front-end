@@ -1,8 +1,42 @@
+# MYT Web
+
+MYT web is the main interface the user uses in order to interact with Move Your Table
+
+>>>
 :bulb: This application is now automatically deployed to [Heroku](https://move-your-table-main.herokuapp.com/).
+>>>
+## Getting Started
+### Requirements
+- [Docker (Desktop)](https://www.docker.com/get-started)
+- [Node](https://nodejs.org/en/)
+- [Yarn](https://yarnpkg.com/)
 
-# Getting Started with Create React App
+### Development Setup
+1. Clone this project using the following command:
+   ```bash
+    $ git clone git@git.ti.howest.be:TI/2021-2022/s5/trending-topics/projects/hybrid-work1/front-end.git
+   ```
+2. Run Yarn install
+   ```bash
+   $ npm install -g yarn
+   $ yarn install
+   ```
+3. Copy the `.env.example` file, rename it to `.env` and complete using the [`.env` reference](#env-configuration)
+4. Start a development server
+   ```bash
+   $ yarn start
+   ```
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> ✅ **Done!** You can reach the application at [localhost:3000](http://localhost:3000)
+
+#### Extending capabilities
+If you want to enable dynamic data, you'll need to spin up a local instance of MYT-MSF. We suggest using the [Gateway repository](https://git.ti.howest.be/TI/2021-2022/s5/trending-topics/projects/hybrid-work1/gateway#getting-started) as your point of entry.
+
+### Going Live
+>>>
+:warning: This section only covers setting up the web app
+>>>
+## `.env` configuration
 
 ## Available Scripts
 
@@ -20,7 +54,6 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `yarn build`
 
 Builds the app for production to the `build` folder.\
