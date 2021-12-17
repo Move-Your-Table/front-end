@@ -57,3 +57,7 @@ If you want to enable dynamic data, you'll need to spin up a local instance of M
    $ serve -s build
    ```
 ## `.env` configuration
+|Key|Value explanation|Required for Development?|... Production?|Value example|
+|---|---|---|---|---|
+|API URL|The API endpoint that is used to connect to the gateway|✔|✔|http://localhost:8080/rest/|
+
