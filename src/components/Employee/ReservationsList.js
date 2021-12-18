@@ -9,8 +9,11 @@ const UpcommingReservationsList = ({ reservations, setReservations }) => {
 
   return (
     <div className="grid grid-cols-2 gap-4">
-      {reservations
-        ? reservations.map((reserv) => (
+      {reservations ? (
+        reservations.length <= 0 ? (
+          <h2>No reservations found</h2>
+        ) : (
+          reservations.map((reserv) => (
             <ReservationCard
               key={reserv.id}
               reservation={reserv}
@@ -20,7 +23,10 @@ const UpcommingReservationsList = ({ reservations, setReservations }) => {
               }}
             />
           ))
-        : "Loading..."}
+        )
+      ) : (
+        "Loading..."
+      )}
 
       <ReservationModal
         isOpen={isReservationModalOpen}
@@ -29,6 +35,17 @@ const UpcommingReservationsList = ({ reservations, setReservations }) => {
         setReservations={setReservations}
       ></ReservationModal>
     </div>
+
+    // reservations.map((reserv) => (
+    //   <ReservationCard
+    //     key={reserv.id}
+    //     reservation={reserv}
+    //     onClickHandler={() => {
+    //       setReservation(reserv);
+    //       setReservationModalOpen(true);
+    //     }}
+    //   />
+    // ))
   );
 };
 

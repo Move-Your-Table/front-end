@@ -38,7 +38,6 @@ class AdminService {
     const request = new Request(process.env.REACT_APP_API_URL + uri, {
       method: httpVerb,
       headers: {
-        Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify(requestBody)

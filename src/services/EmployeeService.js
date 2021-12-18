@@ -19,7 +19,7 @@ class EmployeeService {
   }
 
   async getReservations() {
-    return this.apiCall(`reservations?userId=1`, "GET"); //Because we dont use authentication default user is 1
+    return this.apiCall(`reservations?userId=61b711b7160d8033a7e850b9`, "GET"); //Because we dont use authentication default user is 1
   }
 
   async makeNewReservation(buildingId, roomId, deskId, startTime, endTime) {
