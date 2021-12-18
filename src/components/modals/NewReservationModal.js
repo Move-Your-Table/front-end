@@ -81,9 +81,9 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
 
   const makeReservation = () => {
     EmployeeService.makeNewReservation(
-      deskInfo.buildingId,
-      deskInfo.roomId,
-      deskInfo.id,
+      selectedBuilding,
+      selectedRoom,
+      selectedDesk,
       startDate,
       endDate
     ).then((res) => {

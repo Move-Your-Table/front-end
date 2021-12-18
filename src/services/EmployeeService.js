@@ -24,9 +24,10 @@ class EmployeeService {
 
   async makeNewReservation(buildingId, roomId, deskId, startTime, endTime) {
     return this.apiCall(`reservations`, "POST", {
+      userId: "61b711b7160d8033a7e850b9",
       buildingId: buildingId,
-      roomId: roomId,
-      deskId: deskId,
+      roomName: roomId,
+      deskName: deskId,
       startTime: startTime,
       endTime: endTime
     });

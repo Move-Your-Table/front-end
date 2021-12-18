@@ -91,6 +91,7 @@ const RoomsOverview = () => {
       <NewRoomModal
         isOpen={isCreateModalOpen}
         handleClose={() => setCreateModalOpen((value) => !value)}
+        setRooms={setRoomsJson}
       />
     </div>
   );

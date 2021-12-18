@@ -5,7 +5,7 @@ import AdminService from "../../../services/AdminService";
 import TextInputComponent from "../../Form/TextInputComponent";
 import NumberInputComponent from "../../Form/NumberInputComponent";
 
-const NewRoomModal = ({ handleClose, isOpen }) => {
+const NewRoomModal = ({ handleClose, isOpen, setRooms }) => {
   const [buildings, SetBuildings] = useState([]);
   const [selectedBuilding, setSelectedBuilding] = useState(-1);
 
@@ -24,7 +24,7 @@ const NewRoomModal = ({ handleClose, isOpen }) => {
       capacity,
       floor
     ).then((res) => {
-      console.log(res);
+      setRooms((prev) => [...prev, res]);
       clearForm();
     });
   };
