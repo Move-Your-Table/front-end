@@ -60,11 +60,19 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
     }
   }, [selectedDesk]);
 
+  function dateRangeOverlaps(a_start, a_end, b_start, b_end) {
+    if (a_start <= b_start && b_start <= a_end) return true; // b starts in a
+    if (a_start <= b_end && b_end <= a_end) return true; // b ends in a
+    if (b_start < a_start && a_end < b_end) return true; // a in b
+    return false;
+  }
+
   useEffect(() => {
     if (deskInfo && deskInfo.reservations.length > 0) {
       deskInfo.reservations.map((res) => {
-        const start1 = new Date(res.endTime);
-        const end1 = new Date(res.startTime);
+        const start1 = new Date(res.startTime);
+        const end1 = new Date(res.endTime);
+
         if (start1 <= endDate && startDate <= end1) {
           console.log("Overlpaaing");
           setIsValidTime(false);
