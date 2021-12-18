@@ -35,7 +35,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
       EmployeeService.getRooms(selectedBuilding)
         .then((res) => setRooms(res))
         .catch(() => {
-          setErrorMsg("Could not fetch rooms");
+          console.log("Could not fetch rooms");
         });
       setDeskInfo(null);
       setSelectedRoom(-1);
@@ -47,7 +47,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
       EmployeeService.getDesks(selectedBuilding, selectedRoom)
         .then((res) => setDesks(res))
         .catch(() => {
-          setErrorMsg("Could not fetch desks");
+          console.log("Could not fetch desks");
         });
       setDeskInfo(null);
       setSelectedDesk(-1);
@@ -66,6 +66,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
         const start1 = new Date(res.endTime);
         const end1 = new Date(res.startTime);
         if (start1 <= endDate && startDate <= end1) {
+          console.log("Overlpaaing");
           setIsValidTime(false);
           setErrorMsg(
             "Overlapping reservation on",
@@ -86,10 +87,12 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
       selectedDesk,
       startDate,
       endDate
-    ).then((res) => {
-      setReservations((prev) => [res, ...prev]);
-      resetForm();
-    });
+    )
+      .then((res) => {
+        setReservations((prev) => [res, ...prev]);
+        resetForm();
+      })
+      .catch((err) => console.log("failed", err));
   };
 
   const resetForm = () => {
@@ -139,7 +142,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
         setEndDate={setEndDate}
       ></DateTimeComponent>
 
-      <ErrorMessageComponent showing={errorMsg != null} message={errorMsg} />
+      <ErrorMessageComponent showing={!isValidTime} message={errorMsg} />
 
       {deskInfo && selectedRoom !== -1 && selectedBuilding !== -1 && (
         <ReservationOverview
