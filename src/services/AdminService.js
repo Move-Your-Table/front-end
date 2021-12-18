@@ -7,31 +7,23 @@ class AdminService {
   }
 
   async createNewBuilding(street, city, postcode, country, name) {
-    return this.apiCall(
-      `admin/building`,
-      "POST",
-      JSON.stringify({
-        street: street,
-        city: city,
-        postcode: postcode,
-        country: country,
-        name: name
-      })
-    );
+    return this.apiCall(`admin/building`, "POST", {
+      street: street,
+      city: city,
+      postcode: postcode,
+      country: country,
+      name: name
+    });
   }
 
   async createNewRoom(buildingId, name, type, features, capacity, floor) {
-    return this.apiCall(
-      `admin/building/${buildingId}/room`,
-      "POST",
-      JSON.stringify({
-        name: name,
-        type: type,
-        features: features,
-        capacity: capacity,
-        floor: floor
-      })
-    );
+    return this.apiCall(`admin/building/${buildingId}/room`, "POST", {
+      roomName: name,
+      type: type,
+      features: features,
+      capacity: parseInt(capacity),
+      floor: parseInt(floor)
+    });
   }
 
   async apiCall(uri, httpVerb, requestBody) {

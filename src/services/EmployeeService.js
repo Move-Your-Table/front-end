@@ -23,17 +23,13 @@ class EmployeeService {
   }
 
   async makeNewReservation(buildingId, roomId, deskId, startTime, endTime) {
-    return this.apiCall(
-      `reservations`,
-      "POST",
-      JSON.stringify({
-        buildingId: buildingId,
-        roomId: roomId,
-        deskId: deskId,
-        startTime: startTime,
-        endTime: endTime
-      })
-    );
+    return this.apiCall(`reservations`, "POST", {
+      buildingId: buildingId,
+      roomId: roomId,
+      deskId: deskId,
+      startTime: startTime,
+      endTime: endTime
+    });
   }
 
   async apiCall(uri, httpVerb, requestBody) {
