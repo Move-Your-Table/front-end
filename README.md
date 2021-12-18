@@ -33,24 +33,22 @@ MYT web is the main interface the user uses in order to interact with Move Your 
 If you want to enable dynamic data, you'll need to spin up a local instance of MYT-MSF. We suggest using the [Gateway repository](https://git.ti.howest.be/TI/2021-2022/s5/trending-topics/projects/hybrid-work1/gateway#getting-started) as your point of entry.
 
 ### Going Live
->>>
-:warning: This section only covers setting up the web app
->>>
+
+> :warning: This section only covers setting up the web app
+
 1. Build an optimized version of the application
    ```bash
    $ yarn build
    ```
-   >>>
-   :warning: It could be that yarn might fail to minify your build. Look [here](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) for more information around this 
-   >>>
+   
+   > :warning: It could be that yarn might fail to minify your build. Look [here](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) for more information around this 
 
 2. Install the Serve dependency
    ```
    $ npm install -g serve
    ```
-   >>>
-   :bulb: This is not the only way to serve your application. You can discover all solutions [here](https://create-react-app.dev/docs/deployment/)
-   >>>
+   
+   > :bulb: This is not the only way to serve your application. You can discover all solutions [here](https://create-react-app.dev/docs/deployment/)
 
 3. Serve your application
    ```bash
