@@ -1,9 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NewDeskModal from "../../components/modals/Admin/NewDeskModal";
 import AdminNavigation from "../../components/Navigation/AdminNavigation";
+import SelectComponent from "../../components/Form/SelectComponent";
+import { TableComponent } from "../../components/Admin/TableComponent";
+import AdminService from "../../services/AdminService";
+import EmployeeService from "../../services/EmployeeService";
 
 const DesksOverview = () => {
+  const headers = ["Name", "Type"];
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+  const [deskJson, setDeskJson] = useState(null);
+
+  const [buildings, SetBuildings] = useState([]);
+  const [selectedBuilding, setSelectedBuilding] = useState(-1);
+
+  const [rooms, setRooms] = useState([]);
+  const [selectedRoom, setSelectedRoom] = useState(-1);
+
+  const [searchString, setSearchString] = useState("");
+
+  const formatJson = (res) => {
+    let newArray = [];
+    res.map((item) => {
+      newArray.push({
+        name: item.name,
+        type: item.type
+      });
+    });
+    return newArray;
+  };
+
+  const filterDesks = (item) => {
+    const itemName = item.name.toLowerCase();
+    return itemName.includes(searchString.toLowerCase());
+  };
+
+  useEffect(() => {
+    AdminService.getBuildings().then((res) => {
+      SetBuildings(res);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (selectedBuilding !== -1) {
+      AdminService.getRooms(selectedBuilding).then((res) => setRooms(res));
+      setSelectedRoom(-1);
+    }
+  }, [selectedBuilding]);
+
+  useEffect(() => {
+    if (selectedRoom !== -1 && selectedBuilding !== -1) {
+      EmployeeService.getDesks(selectedBuilding, selectedRoom)
+        .then((res) => setDeskJson(res))
+        .catch(() => setDeskJson([]));
+    }
+  }, [selectedRoom]);
+
   return (
     <div className="container mx-auto px-4 ">
       <AdminNavigation />
@@ -20,22 +72,37 @@ const DesksOverview = () => {
           </div>
         </div>
 
-        {/* {buildingsJson !== null ? (
+        <div className="flex text-white">
+          <SelectComponent
+            title="Building"
+            options={buildings}
+            selected={selectedBuilding}
+            setSelected={setSelectedBuilding}
+          />
+          <SelectComponent
+            title="Room"
+            options={rooms}
+            selected={selectedRoom}
+            setSelected={setSelectedRoom}
+            isDisabled={selectedBuilding !== -1 ? false : true}
+            nameKey={"roomName"}
+          />
+        </div>
+
+        {deskJson !== null ? (
           <TableComponent
             headers={headers}
-            data={formatJson(buildingsJson).filter(filterBuilding)}
+            data={formatJson(deskJson).filter(filterDesks)}
             onDelete={(building) => {
-              AdminService.removeBuilding(building.id).then((r) =>
-                fetchBuildings()
-              );
+              console.log(building);
             }}
             onEdit={() => {
               console.log("Edit");
             }}
           />
         ) : (
-          <h2>Loading..</h2>
-        )} */}
+          <h2>Select a building and room</h2>
+        )}
       </div>
 
       <NewDeskModal
