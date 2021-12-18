@@ -1,37 +1,34 @@
 import React, { useState, useEffect } from "react";
-import NewRoomModal from "../../components/modals/Admin/NewRoomModal";
+import NewDeskModal from "../../components/modals/Admin/NewDeskModal";
 import AdminNavigation from "../../components/Navigation/AdminNavigation";
 import SelectComponent from "../../components/Form/SelectComponent";
-import AdminService from "../../services/AdminService";
 import { TableComponent } from "../../components/Admin/TableComponent";
+import AdminService from "../../services/AdminService";
+import EmployeeService from "../../services/EmployeeService";
 
-const RoomsOverview = () => {
-  const headers = ["Name", "Type", "Capacity"];
+const DesksOverview = () => {
+  const headers = ["Name", "Type"];
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+  const [deskJson, setDeskJson] = useState(null);
 
   const [buildings, SetBuildings] = useState([]);
   const [selectedBuilding, setSelectedBuilding] = useState(-1);
 
+  const [rooms, setRooms] = useState([]);
+  const [selectedRoom, setSelectedRoom] = useState(-1);
+
   const [searchString, setSearchString] = useState("");
 
-  const [roomsJson, setRoomsJson] = useState(null);
-
   const formatJson = (res) => {
-    console.log(res);
+    console.log("y", res);
     let newArray = [];
     res.map((item) => {
       newArray.push({
-        name: item.roomName,
-        type: item.type,
-        capacity: item.capacity
+        name: item.name ? item.name : item.deskName,
+        type: item.type
       });
     });
     return newArray;
-  };
-
-  const filterRooms = (item) => {
-    const itemName = item.name.toLowerCase();
-    return itemName.includes(searchString.toLowerCase());
   };
 
   useEffect(() => {
@@ -42,11 +39,18 @@ const RoomsOverview = () => {
 
   useEffect(() => {
     if (selectedBuilding !== -1) {
-      AdminService.getRooms(selectedBuilding)
-        .then((res) => setRoomsJson(res))
-        .catch(() => setRoomsJson([]));
+      AdminService.getRooms(selectedBuilding).then((res) => setRooms(res));
+      setSelectedRoom(-1);
     }
   }, [selectedBuilding]);
+
+  useEffect(() => {
+    if (selectedRoom !== -1 && selectedBuilding !== -1) {
+      EmployeeService.getDesks(selectedBuilding, selectedRoom)
+        .then((res) => setDeskJson(res))
+        .catch(() => setDeskJson([]));
+    }
+  }, [selectedRoom]);
 
   return (
     <div className="container mx-auto px-4 ">
@@ -54,7 +58,7 @@ const RoomsOverview = () => {
       <div className="container flex flex-col gap-10">
         <div>
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-xl">Rooms</h1>
+            <h1 className="text-xl">Desks</h1>
             <button
               className="bg-indigo-900 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
               onClick={() => setCreateModalOpen((value) => !value)}
@@ -71,30 +75,39 @@ const RoomsOverview = () => {
             selected={selectedBuilding}
             setSelected={setSelectedBuilding}
           />
+          <SelectComponent
+            title="Room"
+            options={rooms}
+            selected={selectedRoom}
+            setSelected={setSelectedRoom}
+            isDisabled={selectedBuilding !== -1 ? false : true}
+            nameKey={"roomName"}
+          />
         </div>
-        {roomsJson !== null ? (
+
+        {deskJson !== null ? (
           <TableComponent
             headers={headers}
-            data={formatJson(roomsJson)}
-            onDelete={() => {
-              console.log("Delete");
+            data={formatJson(deskJson)}
+            onDelete={(building) => {
+              console.log(building);
             }}
             onEdit={() => {
               console.log("Edit");
             }}
           />
         ) : (
-          <h2>Select building</h2>
+          <h2>Select a building and room</h2>
         )}
       </div>
 
-      <NewRoomModal
+      <NewDeskModal
         isOpen={isCreateModalOpen}
         handleClose={() => setCreateModalOpen((value) => !value)}
-        setRooms={setRoomsJson}
+        setDesks={setDeskJson}
       />
     </div>
   );
 };
 
-export default RoomsOverview;
+export default DesksOverview;

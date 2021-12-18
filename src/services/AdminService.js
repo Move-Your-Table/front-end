@@ -6,6 +6,10 @@ class AdminService {
     return this.apiCall(`admin/building/${id}`, "DELETE");
   }
 
+  async getRooms(buildingId) {
+    return this.apiCall(`building/${buildingId}/room`, "GET");
+  }
+
   async createNewBuilding(street, city, postcode, country, name) {
     return this.apiCall(`admin/building`, "POST", {
       street: street,
@@ -24,6 +28,28 @@ class AdminService {
       capacity: parseInt(capacity),
       floor: parseInt(floor)
     });
+  }
+
+  async createNewDesk(
+    buildingId,
+    roomName,
+    deskName,
+    type,
+    features,
+    capacity,
+    floor
+  ) {
+    return this.apiCall(
+      `admin/building/${buildingId}/room/${roomName}/desks`,
+      "POST",
+      {
+        deskName: deskName,
+        type: type,
+        features: features,
+        capacity: parseInt(capacity),
+        floor: parseInt(floor)
+      }
+    );
   }
 
   async apiCall(uri, httpVerb, requestBody) {

@@ -1,61 +1,83 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SlideInModal from "../SlideInModal";
-import SelectComponent from "../../Form/SelectComponent";
-import AdminService from "../../../services/AdminService";
 import TextInputComponent from "../../Form/TextInputComponent";
 import NumberInputComponent from "../../Form/NumberInputComponent";
+import AdminService from "../../../services/AdminService";
+import SelectComponent from "../../Form/SelectComponent";
 
-const NewRoomModal = ({ handleClose, isOpen, setRooms }) => {
+const NewDeskModal = ({ handleClose, isOpen, setDesks }) => {
   const [buildings, SetBuildings] = useState([]);
   const [selectedBuilding, setSelectedBuilding] = useState(-1);
 
-  const [roomName, setRoomName] = useState("");
-  const [type, setType] = useState("Room");
+  const [rooms, setRooms] = useState([]);
+  const [selectedRoom, setSelectedRoom] = useState(-1);
+
+  const [deskName, setDeskName] = useState("");
+  const [type, setType] = useState("Desk");
   const [features, setFeatures] = useState([""]);
   const [capacity, setCapacity] = useState(1);
   const [floor, setFloor] = useState(0);
 
-  const createRoom = () => {
-    AdminService.createNewRoom(
+  useEffect(() => {
+    AdminService.getBuildings().then((res) => SetBuildings(res));
+  }, []);
+
+  useEffect(() => {
+    if (selectedBuilding !== -1) {
+      AdminService.getRooms(selectedBuilding)
+        .then((res) => setRooms(res))
+        .catch(() => {
+          console.log("Error could not fetch rooms");
+        });
+      setSelectedRoom(-1);
+    }
+  }, [selectedBuilding]);
+
+  const createDesk = () => {
+    AdminService.createNewDesk(
       selectedBuilding,
-      roomName,
+      selectedRoom,
+      deskName,
       type,
       features,
       capacity,
       floor
     ).then((res) => {
-      setRooms((prev) => [...prev, res]);
+      setDesks((prev) => [...prev, res]);
       clearForm();
     });
   };
 
   const clearForm = () => {
     setSelectedBuilding(-1);
-    setRoomName("");
+    setDeskName("");
     setFeatures([""]);
     setCapacity(1);
     setFloor(0);
     handleClose();
   };
 
-  useEffect(() => {
-    AdminService.getBuildings().then((res) => SetBuildings(res));
-  }, []);
-
   return (
-    <SlideInModal handleClose={handleClose} isOpen={isOpen} title="New Room">
+    <SlideInModal handleClose={handleClose} isOpen={isOpen} title="New Desk">
       <SelectComponent
         title="Building"
         options={buildings}
         selected={selectedBuilding}
         setSelected={setSelectedBuilding}
       />
+      <SelectComponent
+        title="Room"
+        options={rooms}
+        selected={selectedRoom}
+        setSelected={setSelectedRoom}
+        isDisabled={selectedBuilding !== -1 ? false : true}
+        nameKey={"roomName"}
+      />
       <TextInputComponent
         label={"Name"}
-        placeholder={"Room Name"}
-        onChange={setRoomName}
+        placeholder={"Desk Name"}
+        onChange={setDeskName}
       />
-
       {features.map((f, i) => {
         return (
           <div className="flex" key={i}>
@@ -95,19 +117,13 @@ const NewRoomModal = ({ handleClose, isOpen, setRooms }) => {
 
       <NumberInputComponent
         label={"Capacity"}
-        placeholder={"Room capacity"}
+        placeholder={"Desk capacity"}
         onChange={setCapacity}
       />
-      <NumberInputComponent
-        label={"Floor"}
-        placeholder={"Floor"}
-        onChange={setFloor}
-      />
-
       <div className="w-full md:w-1/3 px-3 mb-6 mt-6 flex justify-between">
         <button
           className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
-          onClick={createRoom}
+          onClick={createDesk}
         >
           Create
         </button>
@@ -122,4 +138,4 @@ const NewRoomModal = ({ handleClose, isOpen, setRooms }) => {
   );
 };
 
-export default NewRoomModal;
+export default NewDeskModal;

@@ -19,6 +19,7 @@ const BuildingsOverview = () => {
 
   const fetchBuildings = () => {
     AdminService.getBuildings().then((res) => {
+      console.log(res);
       setbuildingsJson(res);
     });
   };

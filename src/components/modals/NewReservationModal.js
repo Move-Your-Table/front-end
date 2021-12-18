@@ -27,6 +27,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
 
   useEffect(() => {
     EmployeeService.getBuildings().then((res) => setbuildings(res));
+    console.log(buildings);
   }, []);
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
       EmployeeService.getRooms(selectedBuilding)
         .then((res) => setRooms(res))
         .catch(() => {
-          setErrorMsg("Could not fetch rooms");
+          console.log("Could not fetch rooms");
         });
       setDeskInfo(null);
       setSelectedRoom(-1);
@@ -46,7 +47,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
       EmployeeService.getDesks(selectedBuilding, selectedRoom)
         .then((res) => setDesks(res))
         .catch(() => {
-          setErrorMsg("Could not fetch desks");
+          console.log("Could not fetch desks");
         });
       setDeskInfo(null);
       setSelectedDesk(-1);
@@ -55,16 +56,25 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
 
   useEffect(() => {
     if (selectedDesk !== -1) {
-      setDeskInfo(desks[selectedDesk]);
+      setDeskInfo(desks.find((desk) => desk.name === selectedDesk));
     }
   }, [selectedDesk]);
+
+  function dateRangeOverlaps(a_start, a_end, b_start, b_end) {
+    if (a_start <= b_start && b_start <= a_end) return true; // b starts in a
+    if (a_start <= b_end && b_end <= a_end) return true; // b ends in a
+    if (b_start < a_start && a_end < b_end) return true; // a in b
+    return false;
+  }
 
   useEffect(() => {
     if (deskInfo && deskInfo.reservations.length > 0) {
       deskInfo.reservations.map((res) => {
-        const start1 = new Date(res.endTime);
-        const end1 = new Date(res.startTime);
+        const start1 = new Date(res.startTime);
+        const end1 = new Date(res.endTime);
+
         if (start1 <= endDate && startDate <= end1) {
+          console.log("Overlpaaing");
           setIsValidTime(false);
           setErrorMsg(
             "Overlapping reservation on",
@@ -80,15 +90,17 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
 
   const makeReservation = () => {
     EmployeeService.makeNewReservation(
-      deskInfo.buildingId,
-      deskInfo.roomId,
-      deskInfo.id,
+      selectedBuilding,
+      selectedRoom,
+      selectedDesk,
       startDate,
       endDate
-    ).then((res) => {
-      setReservations((prev) => [res, ...prev]);
-      resetForm();
-    });
+    )
+      .then((res) => {
+        setReservations((prev) => [res, ...prev]);
+        resetForm();
+      })
+      .catch((err) => console.log("failed", err));
   };
 
   const resetForm = () => {
@@ -138,15 +150,15 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
         setEndDate={setEndDate}
       ></DateTimeComponent>
 
-      <ErrorMessageComponent showing={errorMsg != null} message={errorMsg} />
+      <ErrorMessageComponent showing={!isValidTime} message={errorMsg} />
 
       {deskInfo && selectedRoom !== -1 && selectedBuilding !== -1 && (
         <ReservationOverview
-          desk={deskInfo.name}
-          room={rooms[selectedRoom].name}
-          building={buildings[selectedBuilding].name}
+          desk={selectedDesk}
+          room={selectedRoom}
+          building={buildings.find((b) => b.id === selectedBuilding).name}
           date={"29/12"}
-          features={deskInfo.features}
+          //features={deskInfo.features}
         />
       )}
 

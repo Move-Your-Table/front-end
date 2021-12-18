@@ -36,9 +36,9 @@ const ReservationOverview = ({ desk, room, building, date, features }) => {
               Features
             </h4>
             <ul className="list-disc px-6">
-              {features.map((feature, i) => {
+              {/* {features.map((feature, i) => {
                 return <li key={i}>{feature}</li>;
-              })}
+              })} */}
             </ul>
           </div>
         </div>
