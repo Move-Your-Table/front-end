@@ -27,6 +27,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
 
   useEffect(() => {
     EmployeeService.getBuildings().then((res) => setbuildings(res));
+    console.log(buildings);
   }, []);
 
   useEffect(() => {
@@ -55,7 +56,6 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
 
   useEffect(() => {
     if (selectedDesk !== -1) {
-      console.log("selected desk", selectedDesk);
       setDeskInfo(desks.find((desk) => desk.name === selectedDesk));
     }
   }, [selectedDesk]);
@@ -143,11 +143,11 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
 
       {deskInfo && selectedRoom !== -1 && selectedBuilding !== -1 && (
         <ReservationOverview
-          desk={deskInfo.name}
-          room={rooms[selectedRoom].name}
-          building={buildings[selectedBuilding].name}
+          desk={selectedDesk}
+          room={selectedRoom}
+          building={buildings.find((b) => b.id === selectedBuilding).name}
           date={"29/12"}
-          features={deskInfo.features}
+          //features={deskInfo.features}
         />
       )}
 
