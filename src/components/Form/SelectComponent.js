@@ -5,7 +5,8 @@ const SelectComponent = ({
   options,
   selected,
   setSelected,
-  isDisabled
+  isDisabled,
+  nameKey
 }) => {
   const handleChange = (event) => {
     setSelected(event.target.value);
@@ -34,7 +35,7 @@ const SelectComponent = ({
             options.map((item) => {
               return (
                 <option key={item.id} value={item.id}>
-                  {item.name}
+                  {nameKey ? item[nameKey] : item.name}
                 </option>
               );
             })}

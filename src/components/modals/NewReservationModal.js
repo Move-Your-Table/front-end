@@ -118,6 +118,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
         selected={selectedRoom}
         setSelected={setSelectedRoom}
         isDisabled={selectedBuilding !== -1 ? false : true}
+        nameKey={"roomName"}
       />
 
       <SelectComponent
