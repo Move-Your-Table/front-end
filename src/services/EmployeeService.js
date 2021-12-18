@@ -4,9 +4,7 @@ class EmployeeService {
   }
 
   async getRooms(buildingId) {
-    return fetch(`${process.env.REACT_APP_API_URL}building/${buildingId}/room`)
-      .then((response) => response.json())
-      .then((data) => data);
+    return this.apiCall(`building/${buildingId}/room`, "GET");
   }
 
   async getDesks(buildingId, roomId) {
@@ -64,10 +62,10 @@ class EmployeeService {
         if (response.ok) {
           return response.json();
         }
-        throw new Error("Something went wrong.");
+        throw new Error("Request failed" + uri);
       })
-      .catch(function (error) {
-        console.log("Request failed", error);
+      .catch(() => {
+        throw new Error("Request failed" + uri);
       });
   }
 }
