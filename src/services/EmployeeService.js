@@ -1,56 +1,56 @@
 class EmployeeService {
   async getBuildings() {
-    return fetch(`${process.env.REACT_APP_API_URL}buildings`)
-      .then((response) => response.json())
-      .then((data) => data);
+    return this.apiCall("buildings", "GET");
   }
 
   async getRooms(buildingId) {
-    return fetch(`${process.env.REACT_APP_API_URL}building/${buildingId}/room`)
-      .then((response) => response.json())
-      .then((data) => data);
+    return this.apiCall(`building/${buildingId}/room`, "GET");
   }
 
   async getDesks(buildingId, roomId) {
-    return fetch(
-      `${process.env.REACT_APP_API_URL}building/${buildingId}/room/${roomId}/desks`
-    )
-      .then((response) => response.json())
-      .then((data) => data);
+    return this.apiCall(`building/${buildingId}/room/${roomId}/desks`, "GET");
   }
 
   async getDesk(buildingId, roomId, deskId) {
-    return fetch(
-      `${process.env.REACT_APP_API_URL}building/${buildingId}/room/${roomId}/desks/${deskId}`
-    )
-      .then((response) => response.json())
-      .then((data) => data);
+    return this.apiCall(
+      `building/${buildingId}/room/${roomId}/desks/${deskId}`,
+      "GET"
+    );
   }
 
   async getReservations() {
-    return fetch(`${process.env.REACT_APP_API_URL}reservations?userId=1`) //Because we dont use authentication default user is 1
-      .then((response) => response.json())
-      .then((data) => data)
-      .catch((err) => console.log(err));
+    return this.apiCall(`reservations?userId=61b711b7160d8033a7e850b9`, "GET"); //Because we dont use authentication default user is 1
   }
 
   async makeNewReservation(buildingId, roomId, deskId, startTime, endTime) {
-    return fetch(`${process.env.REACT_APP_API_URL}reservations`, {
-      method: "POST",
+    return this.apiCall(`reservations`, "POST", {
+      buildingId: buildingId,
+      roomId: roomId,
+      deskId: deskId,
+      startTime: startTime,
+      endTime: endTime
+    });
+  }
+
+  async apiCall(uri, httpVerb, requestBody) {
+    const request = new Request(process.env.REACT_APP_API_URL + uri, {
+      method: httpVerb,
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        buildingId: buildingId,
-        roomId: roomId,
-        deskId: deskId,
-        startTime: startTime,
-        endTime: endTime
+      body: JSON.stringify(requestBody)
+    });
+    return fetch(request)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Request failed" + uri);
       })
-    })
-      .then((response) => response.json())
-      .then((data) => data);
+      .catch(() => {
+        throw new Error("Request failed" + uri);
+      });
   }
 }
 

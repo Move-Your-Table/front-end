@@ -5,11 +5,13 @@ const SelectComponent = ({
   options,
   selected,
   setSelected,
-  isDisabled
+  isDisabled,
+  nameKey
 }) => {
   const handleChange = (event) => {
     setSelected(event.target.value);
   };
+  console.log(title, options);
 
   return (
     <div className="w-full md:w-1/3 px-3 mb-4 mt-2">
@@ -27,13 +29,13 @@ const SelectComponent = ({
           className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           id={title}
         >
-          {selected < 0 && <option value={-1}>Pick an item</option>}
+          {selected === -1 && <option value={-1}>Pick an item</option>}
 
           {options.length > 0 &&
             options.map((item) => {
               return (
                 <option key={item.id} value={item.id}>
-                  {item.name}
+                  {nameKey ? item[nameKey] : item.name}
                 </option>
               );
             })}
