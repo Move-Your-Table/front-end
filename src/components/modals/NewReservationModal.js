@@ -27,6 +27,9 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
 
   useEffect(() => {
     EmployeeService.getBuildings().then((res) => setbuildings(res));
+    EmployeeService.getBuildings()
+      .then((res) => console.log(res))
+      .catch((err) => console.log("rrr" + err));
   }, []);
 
   useEffect(() => {

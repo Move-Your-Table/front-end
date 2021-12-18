@@ -1,8 +1,6 @@
 class EmployeeService {
   async getBuildings() {
-    return fetch(`${process.env.REACT_APP_API_URL}buildings`)
-      .then((response) => response.json())
-      .then((data) => data);
+    return this.apiCall("buildings", "GET");
   }
 
   async getRooms(buildingId) {
@@ -51,6 +49,26 @@ class EmployeeService {
     })
       .then((response) => response.json())
       .then((data) => data);
+  }
+
+  async apiCall(uri, httpVerb, requestBody) {
+    const request = new Request(process.env.REACT_APP_API_URL + uri, {
+      method: httpVerb,
+      headers: {
+        "Content-type": "application/json;"
+      },
+      body: JSON.stringify(requestBody)
+    });
+    return fetch(request)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Something went wrong.");
+      })
+      .catch(function (error) {
+        console.log("Request failed", error);
+      });
   }
 }
 
