@@ -55,7 +55,8 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
 
   useEffect(() => {
     if (selectedDesk !== -1) {
-      setDeskInfo(desks[selectedDesk]);
+      console.log("selected desk", selectedDesk);
+      setDeskInfo(desks.find((desk) => desk.name === selectedDesk));
     }
   }, [selectedDesk]);
 

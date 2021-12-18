@@ -55,6 +55,7 @@ const NewRoomModal = ({ handleClose, isOpen }) => {
         placeholder={"Room Name"}
         onChange={setRoomName}
       />
+
       {features.map((f, i) => {
         return (
           <div className="flex" key={i}>
@@ -73,7 +74,6 @@ const NewRoomModal = ({ handleClose, isOpen }) => {
               <span
                 className="self-end mb-6 text-2xl text-red-700 font-bold"
                 onClick={() => {
-                  console.log("ddd");
                   setFeatures((prev) => {
                     prev.splice(i, 1);
                     return [...prev];
