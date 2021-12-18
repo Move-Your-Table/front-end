@@ -13,10 +13,13 @@ const EmployeeDasboard = () => {
   //const { error, isPending, data: reservationsJson } = useFetch('http://localhost:8000/blogs')
 
   useEffect(() => {
-    EmployeeService.getReservations().then((res) => {
-      setReservationsJson(res);
-      console.log(reservationsJson);
-    });
+    EmployeeService.getReservations()
+      .then((res) => {
+        setReservationsJson(res);
+      })
+      .catch(() => {
+        setReservationsJson([]);
+      });
   }, []);
 
   return (
