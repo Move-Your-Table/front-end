@@ -5,7 +5,7 @@ import NumberInputComponent from "../../Form/NumberInputComponent";
 import AdminService from "../../../services/AdminService";
 import SelectComponent from "../../Form/SelectComponent";
 
-const NewDeskModal = ({ handleClose, isOpen }) => {
+const NewDeskModal = ({ handleClose, isOpen, setDesks }) => {
   const [buildings, SetBuildings] = useState([]);
   const [selectedBuilding, setSelectedBuilding] = useState(-1);
 
@@ -43,7 +43,7 @@ const NewDeskModal = ({ handleClose, isOpen }) => {
       capacity,
       floor
     ).then((res) => {
-      console.log(res);
+      setDesks((prev) => [...prev, res]);
       clearForm();
     });
   };

@@ -20,19 +20,15 @@ const DesksOverview = () => {
   const [searchString, setSearchString] = useState("");
 
   const formatJson = (res) => {
+    console.log("y", res);
     let newArray = [];
     res.map((item) => {
       newArray.push({
-        name: item.name,
+        name: item.name ? item.name : item.deskName,
         type: item.type
       });
     });
     return newArray;
-  };
-
-  const filterDesks = (item) => {
-    const itemName = item.name.toLowerCase();
-    return itemName.includes(searchString.toLowerCase());
   };
 
   useEffect(() => {
@@ -92,7 +88,7 @@ const DesksOverview = () => {
         {deskJson !== null ? (
           <TableComponent
             headers={headers}
-            data={formatJson(deskJson).filter(filterDesks)}
+            data={formatJson(deskJson)}
             onDelete={(building) => {
               console.log(building);
             }}
@@ -108,6 +104,7 @@ const DesksOverview = () => {
       <NewDeskModal
         isOpen={isCreateModalOpen}
         handleClose={() => setCreateModalOpen((value) => !value)}
+        setDesks={setDeskJson}
       />
     </div>
   );
