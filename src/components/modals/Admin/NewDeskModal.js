@@ -42,10 +42,12 @@ const NewDeskModal = ({ handleClose, isOpen, setDesks }) => {
       features,
       capacity,
       floor
-    ).then((res) => {
-      setDesks((prev) => [...prev, res]);
-      clearForm();
-    });
+    )
+      .then((res) => {
+        setDesks((prev) => [...prev, res]);
+        clearForm();
+      })
+      .catch(() => clearForm());
   };
 
   const clearForm = () => {

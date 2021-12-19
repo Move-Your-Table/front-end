@@ -17,10 +17,12 @@ const NewBuildingModal = ({ handleClose, isOpen, setBuildings }) => {
       postcode,
       country,
       buildingName
-    ).then((res) => {
-      setBuildings((prev) => [...prev, res]);
-      clearForm();
-    });
+    )
+      .then((res) => {
+        setBuildings((prev) => [...prev, res]);
+        clearForm();
+      })
+      .catch(() => clearForm());
   };
 
   const clearForm = () => {
