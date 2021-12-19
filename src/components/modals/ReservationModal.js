@@ -62,15 +62,21 @@ const ReservationModal = ({
               </ul>
             </div>
           </div>
-
-          <div className="w-full md:w-1/3 px-3 mb-6 mt-6 flex justify-between">
-            <button
-              className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
-              onClick={() => console.log(reservation.id)}
-            >
-              Cancel Reservation
-            </button>
-          </div>
+          {setReservations && (
+            <div className="w-full md:w-1/3 px-3 mb-6 mt-6 flex justify-between">
+              <button
+                className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => {
+                  EmployeeService.cancelReservation(reservation.id);
+                  EmployeeService.getReservations().then((res) => {
+                    setReservations(res);
+                  });
+                }}
+              >
+                Cancel Reservation
+              </button>
+            </div>
+          )}
         </SlideInModal>
       )}
     </>

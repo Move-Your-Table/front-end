@@ -37,6 +37,7 @@ const EmployeeDasboard = () => {
 
           {reservationsJson && (
             <ReservationsList
+              setReservations={setReservationsJson}
               reservations={reservationsJson.filter((item) => {
                 return new Date(item.startTime) >= new Date();
               })}
