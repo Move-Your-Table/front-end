@@ -17,8 +17,6 @@ const DesksOverview = () => {
   const [rooms, setRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(-1);
 
-  const [searchString, setSearchString] = useState("");
-
   const formatJson = (res) => {
     let newArray = [];
     res.map((item) => {
