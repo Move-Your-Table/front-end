@@ -89,11 +89,8 @@ const DesksOverview = () => {
           <TableComponent
             headers={headers}
             data={formatJson(deskJson)}
-            onDelete={(building) => {
-              console.log(building);
-            }}
-            onEdit={() => {
-              console.log("Edit");
+            onDelete={(Desk) => {
+              console.log(Desk);
             }}
           />
         ) : (
