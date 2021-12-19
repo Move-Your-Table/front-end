@@ -6,18 +6,15 @@ import AdminService from "../../services/AdminService";
 import { TableComponent } from "../../components/Admin/TableComponent";
 
 const RoomsOverview = () => {
-  const headers = ["Name", "Type", "Capacity"];
+  const headers = ["Name", "Type", "Used capacity"];
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
 
   const [buildings, SetBuildings] = useState([]);
   const [selectedBuilding, setSelectedBuilding] = useState(-1);
 
-  const [searchString, setSearchString] = useState("");
-
   const [roomsJson, setRoomsJson] = useState(null);
 
   const formatJson = (res) => {
-    console.log(res);
     let newArray = [];
     res.map((item) => {
       newArray.push({
@@ -27,11 +24,6 @@ const RoomsOverview = () => {
       });
     });
     return newArray;
-  };
-
-  const filterRooms = (item) => {
-    const itemName = item.name.toLowerCase();
-    return itemName.includes(searchString.toLowerCase());
   };
 
   useEffect(() => {

@@ -23,10 +23,12 @@ const NewRoomModal = ({ handleClose, isOpen, setRooms }) => {
       features,
       capacity,
       floor
-    ).then((res) => {
-      setRooms((prev) => [...prev, res]);
-      clearForm();
-    });
+    )
+      .then((res) => {
+        setRooms((prev) => [...prev, res]);
+        clearForm();
+      })
+      .catch(() => clearForm());
   };
 
   const clearForm = () => {
