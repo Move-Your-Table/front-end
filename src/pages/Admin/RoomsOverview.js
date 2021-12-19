@@ -6,7 +6,7 @@ import AdminService from "../../services/AdminService";
 import { TableComponent } from "../../components/Admin/TableComponent";
 
 const RoomsOverview = () => {
-  const headers = ["Name", "Type", "Capacity"];
+  const headers = ["Name", "Type", "Used capacity"];
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
 
   const [buildings, SetBuildings] = useState([]);
