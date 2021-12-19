@@ -5,7 +5,6 @@ import ReservationModal from "../modals/ReservationModal";
 const UpcommingReservationsList = ({ reservations, setReservations }) => {
   const [isReservationModalOpen, setReservationModalOpen] = useState(false);
   const [reservation, setReservation] = useState();
-  console.log(reservations);
 
   const sortByDate = (a, b) => {
     var dateA = new Date(a.startTime).getTime();
@@ -41,17 +40,6 @@ const UpcommingReservationsList = ({ reservations, setReservations }) => {
         setReservations={setReservations}
       ></ReservationModal>
     </div>
-
-    // reservations.map((reserv) => (
-    //   <ReservationCard
-    //     key={reserv.id}
-    //     reservation={reserv}
-    //     onClickHandler={() => {
-    //       setReservation(reserv);
-    //       setReservationModalOpen(true);
-    //     }}
-    //   />
-    // ))
   );
 };
 

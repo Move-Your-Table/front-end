@@ -15,7 +15,6 @@ const RoomsOverview = () => {
   const [roomsJson, setRoomsJson] = useState(null);
 
   const formatJson = (res) => {
-    console.log(res);
     let newArray = [];
     res.map((item) => {
       newArray.push({
