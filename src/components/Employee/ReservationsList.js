@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import ReservationCard from "./ReservationCard";
 import ReservationModal from "../modals/ReservationModal";
 
-const UpcommingReservationsList = ({
-  reservations,
-  setReservations,
-  setReservationsJson
-}) => {
+const UpcommingReservationsList = ({ reservations, setReservations }) => {
   const [isReservationModalOpen, setReservationModalOpen] = useState(false);
   const [reservation, setReservation] = useState();
   console.log(reservations);

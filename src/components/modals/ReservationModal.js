@@ -67,10 +67,18 @@ const ReservationModal = ({
               <button
                 className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={() => {
-                  EmployeeService.cancelReservation(reservation.id);
-                  EmployeeService.getReservations().then((res) => {
-                    setReservations(res);
-                  });
+                  //console.log(reservation);
+                  EmployeeService.cancelReservation(
+                    reservation.id,
+                    reservation.building.id,
+                    reservation.room.id,
+                    reservation.desk.id
+                  ).then(() =>
+                    EmployeeService.getReservations().then((res) => {
+                      setReservations(res);
+                      handleClose();
+                    })
+                  );
                 }}
               >
                 Cancel Reservation

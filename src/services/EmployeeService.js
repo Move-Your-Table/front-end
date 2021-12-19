@@ -19,7 +19,7 @@ class EmployeeService {
   }
 
   async getReservations() {
-    return this.apiCall(`reservations?userId=61b711b7160d8033a7e850b9`, "GET"); //Because we dont use authentication default user is 1
+    return this.apiCall(`reservations?userId=61b711b7160d8033a7e850b9`, "GET"); //Because we dont use authentication default user this id
   }
 
   async makeNewReservation(buildingId, roomId, deskId, startTime, endTime) {
@@ -33,8 +33,12 @@ class EmployeeService {
     });
   }
 
-  async cancelReservation(reservationId) {
-    return this.apiCall(`reservations/${reservationId}`, "DELETE");
+  async cancelReservation(reservationId, buildingId, roomName, deskName) {
+    return this.apiCall(`reservations/${reservationId}`, "DELETE", {
+      buildingId: buildingId,
+      roomName: roomName,
+      deskName: deskName
+    });
   }
 
   async apiCall(uri, httpVerb, requestBody) {
