@@ -54,7 +54,7 @@ class AdminService {
 
   async removeDesk(buildingId, roomName, deskName) {
     return this.apiCall(
-      `admin/building/${buildingId}}/room/${roomName}/desks/${deskName}`,
+      `admin/building/${buildingId}/room/${roomName}/desks/${deskName}`,
       "DELETE"
     );
   }
