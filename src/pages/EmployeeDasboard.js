@@ -10,8 +10,6 @@ const EmployeeDasboard = () => {
 
   const [reservationsJson, setReservationsJson] = useState(null);
 
-  //const { error, isPending, data: reservationsJson } = useFetch('http://localhost:8000/blogs')
-
   useEffect(() => {
     EmployeeService.getReservations()
       .then((res) => {
@@ -37,11 +35,24 @@ const EmployeeDasboard = () => {
             </button>
           </div>
 
-          <ReservationsList reservations={reservationsJson} />
+          {reservationsJson && (
+            <ReservationsList
+              setReservations={setReservationsJson}
+              reservations={reservationsJson.filter((item) => {
+                return new Date(item.startTime) >= new Date();
+              })}
+            />
+          )}
         </div>
         <div className="flex flex-1 flex-col">
-          {/* <h2 className="mb-8 text-xl">Past reservations</h2>
-          <UpcommingReservationsList reservations={reservationsJson} /> */}
+          <h2 className="mb-8 text-xl">Past reservations</h2>
+          {reservationsJson && (
+            <ReservationsList
+              reservations={reservationsJson.filter((item) => {
+                return new Date(item.startTime) < new Date();
+              })}
+            />
+          )}
         </div>
       </div>
 

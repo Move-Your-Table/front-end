@@ -74,9 +74,6 @@ const BuildingsOverview = () => {
                 fetchBuildings()
               );
             }}
-            onEdit={() => {
-              console.log("Edit");
-            }}
           />
         ) : (
           <h2>Loading..</h2>

@@ -3,7 +3,12 @@ import SlideInModal from "./SlideInModal";
 import TimeFormater from "../util/TimeFormater";
 import EmployeeService from "../../services/EmployeeService";
 
-const ReservationModal = ({ handleClose, isOpen, reservation }) => {
+const ReservationModal = ({
+  handleClose,
+  isOpen,
+  reservation,
+  setReservations
+}) => {
   const [features, setFeatures] = useState([]);
   useEffect(() => {
     if (reservation) {
@@ -57,20 +62,29 @@ const ReservationModal = ({ handleClose, isOpen, reservation }) => {
               </ul>
             </div>
           </div>
-
-          <div>
-            <label className="block text-left font-bold">
-              <span className="text-gray-700 mb-2 inline-block">
-                Have a problem to report?
-              </span>
-              <textarea
-                className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
-                rows="4"
-                rows="3"
-                placeholder="Type something here"
-              ></textarea>
-            </label>
-          </div>
+          {setReservations && (
+            <div className="w-full md:w-1/3 px-3 mb-6 mt-6 flex justify-between">
+              <button
+                className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => {
+                  //console.log(reservation);
+                  EmployeeService.cancelReservation(
+                    reservation.id,
+                    reservation.building.id,
+                    reservation.room.id,
+                    reservation.desk.id
+                  ).then(() =>
+                    EmployeeService.getReservations().then((res) => {
+                      setReservations(res);
+                      handleClose();
+                    })
+                  );
+                }}
+              >
+                Cancel Reservation
+              </button>
+            </div>
+          )}
         </SlideInModal>
       )}
     </>

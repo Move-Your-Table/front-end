@@ -42,11 +42,15 @@ const RoomsOverview = () => {
 
   useEffect(() => {
     if (selectedBuilding !== -1) {
-      AdminService.getRooms(selectedBuilding)
-        .then((res) => setRoomsJson(res))
-        .catch(() => setRoomsJson([]));
+      fetchRooms();
     }
   }, [selectedBuilding]);
+
+  const fetchRooms = () => {
+    AdminService.getRooms(selectedBuilding)
+      .then((res) => setRoomsJson(res))
+      .catch(() => setRoomsJson([]));
+  };
 
   return (
     <div className="container mx-auto px-4 ">
@@ -76,11 +80,10 @@ const RoomsOverview = () => {
           <TableComponent
             headers={headers}
             data={formatJson(roomsJson)}
-            onDelete={() => {
-              console.log("Delete");
-            }}
-            onEdit={() => {
-              console.log("Edit");
+            onDelete={(room) => {
+              AdminService.removeRoom(selectedBuilding, room.name).then(() =>
+                fetchRooms()
+              );
             }}
           />
         ) : (

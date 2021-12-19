@@ -20,7 +20,6 @@ const DesksOverview = () => {
   const [searchString, setSearchString] = useState("");
 
   const formatJson = (res) => {
-    console.log("y", res);
     let newArray = [];
     res.map((item) => {
       newArray.push({
@@ -46,11 +45,15 @@ const DesksOverview = () => {
 
   useEffect(() => {
     if (selectedRoom !== -1 && selectedBuilding !== -1) {
-      EmployeeService.getDesks(selectedBuilding, selectedRoom)
-        .then((res) => setDeskJson(res))
-        .catch(() => setDeskJson([]));
+      fetchDesks();
     }
   }, [selectedRoom]);
+
+  const fetchDesks = () => {
+    EmployeeService.getDesks(selectedBuilding, selectedRoom)
+      .then((res) => setDeskJson(res))
+      .catch(() => setDeskJson([]));
+  };
 
   return (
     <div className="container mx-auto px-4 ">
@@ -89,11 +92,12 @@ const DesksOverview = () => {
           <TableComponent
             headers={headers}
             data={formatJson(deskJson)}
-            onDelete={(building) => {
-              console.log(building);
-            }}
-            onEdit={() => {
-              console.log("Edit");
+            onDelete={(desk) => {
+              AdminService.removeDesk(
+                selectedBuilding,
+                selectedRoom,
+                desk.name
+              ).then(() => fetchDesks());
             }}
           />
         ) : (
