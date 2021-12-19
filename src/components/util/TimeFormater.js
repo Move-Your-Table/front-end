@@ -10,9 +10,10 @@ class TimeFormater {
   ];
   formatDate = (startDate) => {
     const date = new Date(startDate);
-    return `${this.weekday[date.getDay()]} ${("0" + date.getDay()).slice(
+    console.log(date);
+    return `${this.weekday[date.getDay()]} ${("0" + date.getDate()).slice(
       -2
-    )}/${("0" + date.getMonth()).slice(-2)}`;
+    )}/${("0" + (date.getMonth() + 1)).slice(-2)}`;
   };
   formatTime = (startDate, endDate) => {
     const startTime = new Date(startDate);

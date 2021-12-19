@@ -11,7 +11,6 @@ const SelectComponent = ({
   const handleChange = (event) => {
     setSelected(event.target.value);
   };
-  console.log(title, options);
 
   return (
     <div className="w-full md:w-1/3 px-3 mb-4 mt-2">
@@ -32,9 +31,9 @@ const SelectComponent = ({
           {selected === -1 && <option value={-1}>Pick an item</option>}
 
           {options.length > 0 &&
-            options.map((item) => {
+            options.map((item, index) => {
               return (
-                <option key={item.id} value={item.id}>
+                <option key={`${title}${index}`} value={item.id}>
                   {nameKey ? item[nameKey] : item.name}
                 </option>
               );

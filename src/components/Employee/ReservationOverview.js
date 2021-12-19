@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-const ReservationOverview = ({ desk, room, building, date, features }) => {
+import TimeFormater from "../util/TimeFormater";
+const ReservationOverview = ({
+  desk,
+  room,
+  building,
+  startDate,
+  endDate,
+  features
+}) => {
   return (
     <>
       {true && (
@@ -25,7 +33,9 @@ const ReservationOverview = ({ desk, room, building, date, features }) => {
                   <span className="font-bold">Building:</span> {building}
                 </li>
                 <li className="mb-3 mt-3 px-3">
-                  <span className="font-bold">Date:</span> {date}
+                  <span className="font-bold">Date:</span>{" "}
+                  {TimeFormater.formatDate(startDate)}:{" "}
+                  {TimeFormater.formatTime(startDate, endDate)}
                 </li>
               </ul>
             </div>

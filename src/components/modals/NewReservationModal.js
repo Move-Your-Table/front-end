@@ -5,6 +5,7 @@ import SelectComponent from "../Form/SelectComponent";
 import SlideInModal from "./SlideInModal";
 import ReservationOverview from "../Employee/ReservationOverview";
 import { ErrorMessageComponent } from "../Form/ErrorMessageComponent";
+import TimeFormater from "../util/TimeFormater";
 
 const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
   const [rooms, setRooms] = useState([]);
@@ -27,7 +28,6 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
 
   useEffect(() => {
     EmployeeService.getBuildings().then((res) => setbuildings(res));
-    console.log(buildings);
   }, []);
 
   useEffect(() => {
@@ -56,37 +56,44 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
 
   useEffect(() => {
     if (selectedDesk !== -1) {
-      setDeskInfo(desks.find((desk) => desk.name === selectedDesk));
+      console.log("desk info");
+      console.log(selectedDesk);
+      setDeskInfo(desks.find((desk) => desk.deskName === selectedDesk));
     }
   }, [selectedDesk]);
 
-  function dateRangeOverlaps(a_start, a_end, b_start, b_end) {
-    if (a_start <= b_start && b_start <= a_end) return true; // b starts in a
-    if (a_start <= b_end && b_end <= a_end) return true; // b ends in a
-    if (b_start < a_start && a_end < b_end) return true; // a in b
-    return false;
-  }
-
   useEffect(() => {
     if (deskInfo && deskInfo.reservations.length > 0) {
-      deskInfo.reservations.map((res) => {
-        const start1 = new Date(res.startTime);
-        const end1 = new Date(res.endTime);
-
-        if (start1 <= endDate && startDate <= end1) {
-          console.log("Overlpaaing");
-          setIsValidTime(false);
-          setErrorMsg(
-            "Overlapping reservation on",
-            `${start1.getHours()}:${start1.getMinutes()}`,
-            `${end1.getHours()}:${end1.getMinutes()}`
-          );
-        } else {
-          setIsValidTime(true);
-        }
-      });
+      if (checkIfReservationIsInFuture() || checkForOverlappingReservations()) {
+        setIsValidTime(false);
+      } else {
+        setIsValidTime(true);
+      }
     }
   }, [startDate, endDate, deskInfo]);
+
+  const checkIfReservationIsInFuture = () => {
+    if (startDate <= new Date()) {
+      setErrorMsg("Reservations have to be in the future");
+      return true;
+    }
+    return false;
+  };
+
+  const checkForOverlappingReservations = () => {
+    return !deskInfo.reservations.every((res) => {
+      const start1 = new Date(res.startTime);
+      const end1 = new Date(res.endTime);
+
+      if (start1 < endDate && startDate < end1) {
+        setErrorMsg(
+          `Overlapping reservation on ${TimeFormater.formatTime(start1, end1)}`
+        );
+        return false;
+      }
+      return true;
+    });
+  };
 
   const makeReservation = () => {
     EmployeeService.makeNewReservation(
@@ -141,6 +148,7 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
         isDisabled={
           selectedRoom !== -1 && selectedBuilding !== -1 ? false : true
         }
+        nameKey={"deskName"}
       />
 
       <DateTimeComponent
@@ -157,7 +165,8 @@ const NewReservationModal = ({ handleClose, isOpen, setReservations }) => {
           desk={selectedDesk}
           room={selectedRoom}
           building={buildings.find((b) => b.id === selectedBuilding).name}
-          date={"29/12"}
+          startDate={startDate}
+          endDate={endDate}
           //features={deskInfo.features}
         />
       )}
