@@ -7,13 +7,19 @@ const UpcommingReservationsList = ({ reservations, setReservations }) => {
   const [reservation, setReservation] = useState();
   console.log(reservations);
 
+  const sortByDate = (a, b) => {
+    var dateA = new Date(a.startTime).getTime();
+    var dateB = new Date(b.startTime).getTime();
+    return dateA > dateB ? 1 : -1;
+  };
+
   return (
     <div className="grid grid-cols-2 gap-4">
       {reservations ? (
         reservations.length <= 0 ? (
           <h2>No reservations found</h2>
         ) : (
-          reservations.map((reserv) => (
+          reservations.sort(sortByDate).map((reserv) => (
             <ReservationCard
               key={reserv.id}
               reservation={reserv}
