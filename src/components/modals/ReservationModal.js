@@ -3,7 +3,12 @@ import SlideInModal from "./SlideInModal";
 import TimeFormater from "../util/TimeFormater";
 import EmployeeService from "../../services/EmployeeService";
 
-const ReservationModal = ({ handleClose, isOpen, reservation }) => {
+const ReservationModal = ({
+  handleClose,
+  isOpen,
+  reservation,
+  setReservations
+}) => {
   const [features, setFeatures] = useState([]);
   useEffect(() => {
     if (reservation) {

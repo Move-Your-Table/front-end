@@ -33,6 +33,10 @@ class EmployeeService {
     });
   }
 
+  async cancelReservation(reservationId) {
+    return this.apiCall(`reservations/${reservationId}`, "DELETE");
+  }
+
   async apiCall(uri, httpVerb, requestBody) {
     const request = new Request(process.env.REACT_APP_API_URL + uri, {
       method: httpVerb,
