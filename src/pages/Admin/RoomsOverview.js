@@ -76,11 +76,8 @@ const RoomsOverview = () => {
           <TableComponent
             headers={headers}
             data={formatJson(roomsJson)}
-            onDelete={() => {
-              console.log("Delete");
-            }}
-            onEdit={() => {
-              console.log("Edit");
+            onDelete={(test) => {
+              console.log(test);
             }}
           />
         ) : (

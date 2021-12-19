@@ -59,6 +59,13 @@ class AdminService {
     );
   }
 
+  async removeRoom(buildingId, roomName) {
+    return this.apiCall(
+      `admin/building/${buildingId}/room/${roomName}`,
+      "DELETE"
+    );
+  }
+
   async apiCall(uri, httpVerb, requestBody) {
     const request = new Request(process.env.REACT_APP_API_URL + uri, {
       method: httpVerb,
